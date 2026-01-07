@@ -1,6 +1,5 @@
 // Navbar.jsx
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import {
   FaHome,
   FaUser,
@@ -14,14 +13,25 @@ import {
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // menu items with paths
+  // menu items with section ids (paths removed)
   const menuItems = [
-    { icon: <FaHome size={20} />, label: "Home", path: "/" },
-    { icon: <FaUser size={20} />, label: "About", path: "/about" },
-    { icon: <FaTools size={20} />, label: "Skills", path: "/skills" },
-    { icon: <FaProjectDiagram size={20} />, label: "Projects", path: "/projects" },
-    { icon: <FaEnvelope size={20} />, label: "Contact", path: "/contact" },
+    { icon: <FaHome size={20} />, label: "Home", id: "home" },
+    { icon: <FaUser size={20} />, label: "About", id: "about" },
+    { icon: <FaTools size={20} />, label: "Skills", id: "skills" },
+    { icon: <FaProjectDiagram size={20} />, label: "Projects", id: "projects" },
+    { icon: <FaEnvelope size={20} />, label: "Contact", id: "contact" },
   ];
+
+  // scroll function
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const yOffset = -80; // navbar height offset
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+    setMenuOpen(false); // close mobile menu after click
+  };
 
   return (
     <nav className="w-full px-4 py-2 flex items-center justify-between bg-white shadow-md relative">
@@ -46,14 +56,14 @@ const Navbar = () => {
       {/* CENTER: Menu Icons */}
       <div className="hidden sm:flex flex-1 justify-center space-x-6">
         {menuItems.map((item, idx) => (
-          <Link
-            to={item.path}
+          <button
             key={idx}
+            onClick={() => scrollToSection(item.id)}
             className="flex flex-col items-center text-gray-600 hover:text-black cursor-pointer min-w-[50px]"
           >
             {item.icon}
             <span className="text-sm">{item.label}</span>
-          </Link>
+          </button>
         ))}
       </div>
 
@@ -80,15 +90,14 @@ const Navbar = () => {
       {menuOpen && (
         <div className="sm:hidden absolute top-full left-0 w-full bg-white shadow-md z-50">
           {menuItems.map((item, idx) => (
-            <Link
-              to={item.path}
+            <button
               key={idx}
-              className="flex items-center space-x-2 px-4 py-3 border-b border-gray-200 text-gray-700 hover:bg-gray-100"
-              onClick={() => setMenuOpen(false)}
+              onClick={() => scrollToSection(item.id)}
+              className="flex items-center space-x-2 px-4 py-3 border-b border-gray-200 text-gray-700 hover:bg-gray-100 w-full text-left"
             >
               {item.icon}
               <span className="text-sm">{item.label}</span>
-            </Link>
+            </button>
           ))}
         </div>
       )}
