@@ -1,7 +1,7 @@
 import ProfileHeader from "./ProfileHeader";
 import ProfileInfo from "./ProfileInfo";
 import About from "./About";
-import Skill from "./Skill";
+import Activities from "./Activities";
 import Project from "./Project";
 import Contact from "./Contact";
 
@@ -21,8 +21,8 @@ export default function Imports() {
                 <About />
             </section>
 
-            <section id="skills" className="h-screen flex items-center justify-center bg-purple-100">
-                <Skill />
+            <section id="Activities">
+                <Activities />
             </section>
 
             <section id="projects">
