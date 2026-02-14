@@ -35,7 +35,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full px-4 py-2 flex items-center justify-between bg-white shadow-md relative">
-      
+
       {/* LEFT: Logo + Search */}
       <div className="flex items-center space-x-2 sm:space-x-4">
         <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden">
@@ -80,7 +80,7 @@ const Navbar = () => {
 
         <button
           className="sm:hidden ml-2 text-gray-700 focus:outline-none"
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() => setMenuOpen(!menuOpen)}//agar close hai to open karo agar open hai to close karo
         >
           {menuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
         </button>

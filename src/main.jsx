@@ -10,7 +10,7 @@ import Banner from './admin/Banner.jsx';
 const router = createBrowserRouter([
   {
     path: '/', 
-    element: <App />, // App ke andar <Outlet /> hona chahiye      
+    element: <App />,   
   },
   // Admin as new parent route
   {

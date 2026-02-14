@@ -1,4 +1,5 @@
 import ProfileHeader from "./ProfileHeader";
+import ProfileInfo from "./ProfileInfo";
 import About from "./About";
 import Skill from "./Skill";
 import Project from "./Project";
@@ -10,6 +11,10 @@ export default function Imports() {
         <>
             <section id='home'>
                 <ProfileHeader />
+            </section>
+
+             <section id="info">
+                <ProfileInfo />
             </section>
 
             <section id="about">
