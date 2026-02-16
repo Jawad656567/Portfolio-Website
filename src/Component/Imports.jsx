@@ -2,6 +2,7 @@ import ProfileHeader from "./ProfileHeader";
 import ProfileInfo from "./ProfileInfo";
 import About from "./About";
 import Activities from "./Activities";
+import AllActivity from './AllActivity.jsx';
 import Project from "./Project";
 import Contact from "./Contact";
 
@@ -13,7 +14,7 @@ export default function Imports() {
                 <ProfileHeader />
             </section>
 
-             <section id="info">
+            <section id="info">
                 <ProfileInfo />
             </section>
 
@@ -29,7 +30,7 @@ export default function Imports() {
                 <Project />
             </section>
 
-            <section id="contact" className="h-screen flex items-center justify-center bg-red-100">
+            <section id="contact">
                 <Contact />
             </section>
         </>
