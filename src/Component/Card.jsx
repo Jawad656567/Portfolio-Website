@@ -43,9 +43,12 @@ function Card({ profilePic, name, role, description, image }) {
         <div className="flex items-center">
           <div className="relative">
             <img
-              className="w-12 h-12 rounded-full mr-3 border-2 border-gradient-to-r from-purple-400 to-pink-400 object-cover object-top ring-2 ring-purple-100"
-              src={profilePic || "image.png"}
+              className="w-12 h-12 rounded-full mr-3 border-2 border-purple-400 object-cover object-top ring-2 ring-purple-100"
+              src="image.png"
               alt={name}
+              onError={(e) => {
+                e.target.src = "https://api.dicebear.com/7.x/avataaars/svg?seed=default";
+              }}
             />
             <div className="absolute bottom-0 right-2 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
           </div>
@@ -64,13 +67,16 @@ function Card({ profilePic, name, role, description, image }) {
         <p className="text-gray-800 leading-relaxed text-sm">{description}</p>
       </div>
 
-      {/* Post Image with SMALLER HEIGHT */}
+      {/* Post Image - ab bottom se crop hogi, top dikhega */}
       {image && (
         <div className="relative overflow-hidden group h-64">
           <img
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
             src={image}
             alt="post image"
+            onError={(e) => {
+              e.target.src = "https://via.placeholder.com/600x400/e2e8f0/64748b?text=Image";
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
@@ -161,8 +167,11 @@ function Card({ profilePic, name, role, description, image }) {
               <div key={index} className="flex items-start space-x-3 animate-fadeIn">
                 <img
                   className="w-8 h-8 rounded-full border border-gray-200 flex-shrink-0"
-                  src={profilePic || "profile.jpeg"}
+                  src={profilePic || "https://api.dicebear.com/7.x/avataaars/svg?seed=" + name}
                   alt="commenter"
+                  onError={(e) => {
+                    e.target.src = "https://api.dicebear.com/7.x/avataaars/svg?seed=default";
+                  }}
                 />
                 <div className="flex-1 bg-white px-3 py-2 rounded-2xl border border-gray-100">
                   <p className="font-semibold text-sm text-gray-900">{name}</p>
@@ -177,8 +186,11 @@ function Card({ profilePic, name, role, description, image }) {
           <div className="flex items-center space-x-2 mt-4">
             <img
               className="w-8 h-8 rounded-full border border-gray-200"
-              src={profilePic || "profile.jpeg"}
+              src={profilePic || "https://api.dicebear.com/7.x/avataaars/svg?seed=" + name}
               alt="your profile"
+              onError={(e) => {
+                e.target.src = "https://api.dicebear.com/7.x/avataaars/svg?seed=default";
+              }}
             />
             <input
               type="text"

@@ -40,7 +40,9 @@ export default function Activities() {
       </div>
 
       {/* Bottom Border */}
-      <div className="mt-6 border-t border-gray-300 "></div>
+     <div className="mt-4 border-t border-gray-300 -mx-6"></div>
+
+
     </div>
     </>
   );

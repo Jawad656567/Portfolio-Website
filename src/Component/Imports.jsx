@@ -2,7 +2,7 @@ import ProfileHeader from "./ProfileHeader";
 import ProfileInfo from "./ProfileInfo";
 import About from "./About";
 import Activities from "./Activities";
-import AllActivity from './AllActivity.jsx';
+import Skill from './Skill.jsx';
 import Project from "./Project";
 import Contact from "./Contact";
 
@@ -26,8 +26,8 @@ export default function Imports() {
                 <Activities />
             </section>
 
-            <section id="projects">
-                <Project />
+            <section id="skill">
+                <Skill />
             </section>
 
             <section id="contact">
