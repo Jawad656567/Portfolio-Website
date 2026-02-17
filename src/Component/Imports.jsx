@@ -5,6 +5,7 @@ import Activities from "./Activities";
 import Skill from './Skill.jsx';
 import Project from "./Project";
 import Contact from "./Contact";
+import Education from "./Education.jsx";
 
 
 export default function Imports() {
@@ -28,6 +29,10 @@ export default function Imports() {
 
             <section id="skill">
                 <Skill />
+            </section>
+
+             <section id="education">
+                <Education />
             </section>
 
             <section id="contact">
