@@ -11,12 +11,12 @@ export default function Activities() {
   return (
     <>
     <div className="w-full border-t border-gray-300"></div>
-    <div className="min-h-screen bg-white pt-9 pl-7 pr-6 flex flex-col">
+    <div className="bg-white pt-9 pl-7 pr-6 flex flex-col">
       <h2 className="text-[25px] pr-4 font-black text-gray-700 mb-3">
         Activities
       </h2>
 
-      <div className="grid  gap-6 grid-cols-1 md:grid-cols-3 w-full">
+      <div className="grid gap-6 grid-cols-1 md:grid-cols-3 w-full">
         {latestPosts.map((activity, index) => (
           <Card
             key={index}
@@ -40,8 +40,7 @@ export default function Activities() {
       </div>
 
       {/* Bottom Border */}
-     <div className="mt-4 border-t border-gray-300 -mx-6"></div>
-
+      <div className="mt-4 border-t border-gray-300 -mx-6"></div>
 
     </div>
     </>

@@ -156,9 +156,10 @@ function FanDiagram({ label, cards, delay = 0 }) {
   const lineEnd = armLen - 36 * scale;
 
   return (
+    // ✅ overflow-hidden lagaya — rotating cards page width affect na karein
     <div
       ref={containerRef}
-      className="fan-wrapper w-full flex justify-center select-none"
+      className="fan-wrapper w-full flex justify-center select-none overflow-hidden"
       style={{
         animationDelay: `${delay}ms`,
         cursor: isDragging ? "grabbing" : "grab",
@@ -169,7 +170,6 @@ function FanDiagram({ label, cards, delay = 0 }) {
         className="relative flex items-center justify-center shrink-0"
         style={{ width: totalSize, height: totalSize }}
       >
-        {/* SVG lines — rotate with fan */}
         <svg
           className="absolute inset-0"
           width={totalSize}
@@ -189,7 +189,6 @@ function FanDiagram({ label, cards, delay = 0 }) {
           })}
         </svg>
 
-        {/* Cards — counter-rotate to stay upright */}
         <div
           className="absolute inset-0 flex items-center justify-center"
           style={{ transform: `rotate(${rotation}deg)`, willChange: "transform" }}
@@ -209,7 +208,6 @@ function FanDiagram({ label, cards, delay = 0 }) {
           })}
         </div>
 
-        {/* Center circle */}
         <div
           className="bg-black text-white flex items-center justify-center rounded-full font-bold z-20 shrink-0"
           style={{ width: circleR * 2, height: circleR * 2, fontSize: 15 * scale, pointerEvents: "none" }}
@@ -223,18 +221,17 @@ function FanDiagram({ label, cards, delay = 0 }) {
 
 export default function Skills() {
   return (
-    <>
+    // ✅ sabse bahari div mein overflow-x-hidden — poora section safe
+    <div className="overflow-x-hidden">
       <style>{style}</style>
-      <div className="flex flex-col items-start bg-white px-6 -mt-16 pb-10
+      <div className="flex flex-col items-start bg-white px-6 mt-6 pb-10
                       sm:px-8 sm:mt-0 sm:pt-4 sm:pb-14
                       lg:pt-6 lg:pb-20">
 
         <h2 className="text-[25px] font-black text-gray-700 spin-hint">
           My Skills & Tools
         </h2>
-       
 
-        {/* Mobile: column | Desktop (lg): row */}
         <div className="flex flex-col lg:flex-row items-center justify-center w-full">
           <div className="w-full lg:w-1/2">
             <FanDiagram
@@ -249,7 +246,6 @@ export default function Skills() {
             />
           </div>
 
-          {/* Divider: vertical on desktop, horizontal on mobile */}
           <div className="hidden lg:block w-px bg-gray-200 self-stretch mx-2" />
           <div className="lg:hidden w-full h-px bg-gray-200 my-2" />
 
@@ -267,9 +263,10 @@ export default function Skills() {
           </div>
         </div>
 
-<div className="w-screen border-t border-gray-300 -mx-6 sm:-mx-12"></div>
-
       </div>
-    </>
+
+      <div className="w-full border-t border-gray-300"></div>
+    </div>
   );
 }
+

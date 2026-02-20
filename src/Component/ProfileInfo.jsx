@@ -8,7 +8,7 @@ const UserProfileCard = () => {
         {/* Center: Name & Info */}
         <div className="lg:pt-24 pt-12 flex-1">
           <h2 className="text-2xl font-bold text-gray-900">
-            Jawad Ali <span className="text-gray-500 text-lg">CS · 5th Semester</span>
+            Jawad Ali <span className="text-gray-500 text-lg">CS · 6th Semester</span>
           </h2>
           <p className="text-gray-700 mt-1">
             CS Student 🎓 | Front-End Developer 💻
@@ -38,7 +38,7 @@ const UserProfileCard = () => {
 
           {/* Education */}
           <div className="flex flex-col space-y-1 text-gray-700 text-sm mt-3">
-            <span>Computer Science · 5th Semester</span>
+            <span>Computer Science · 6th Semester</span>
             <span>University of Swabi</span>
           </div>
 

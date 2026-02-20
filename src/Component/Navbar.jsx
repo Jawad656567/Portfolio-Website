@@ -38,13 +38,13 @@ const Navbar = () => {
 
       {/* LEFT: Logo + Search */}
       <div className="flex items-center space-x-2 sm:space-x-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden">
-          <img
-            src="logo.png"
-            alt="Logo"
-            className="w-full h-full object-cover object-top"
-          />
-        </div>
+      <div className="relative w-12 h-10 sm:w-12 sm:h-12 rounded-full">
+  <img
+    src="logoo.jpeg"
+    alt="Logo"
+    className="absolute inset-0 w-full h-full object-cover object-top scale-[1.5]"
+  />
+</div>
 
         <input
           type="text"
