@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
-import { Code2, Zap, Palette, Database, Cloud, Server } from "lucide-react";
+import { Code2, Zap, Palette, Database, Cloud, Server, TagIcon } from "lucide-react";
 
 const style = `
   @keyframes headingReveal {
@@ -239,7 +239,7 @@ export default function Skills() {
               cards={[
                 { name: "CSS3",       icon: Palette  },
                 { name: "React",      icon: Zap      },
-                { name: "MongoDB",    icon: Database },
+                { name: "Tailwind",    icon: TagIcon },
                 { name: "JavaScript", icon: Code2    },
               ]}
               delay={100}
@@ -256,7 +256,7 @@ export default function Skills() {
                 { name: "Vercel",  icon: Cloud  },
                 { name: "GitHub",  icon: Code2  },
                 { name: "Render",  icon: Server },
-                { name: "Docker",  icon: Server },
+                { name: "MongoDB",  icon: Database },
               ]}
               delay={300}
             />

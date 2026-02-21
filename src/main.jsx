@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Admin from './admin/MainAdmin.jsx'; // new parent route
 import Banner from './admin/Banner.jsx';
 import AllActivity from './Component/AllActivity.jsx';
+import Contact from './Component/Contact.jsx';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,11 @@ const router = createBrowserRouter([
     path: '/activity',
     element: <AllActivity />,
   },
+  {
+    path: '/contact',
+    element: <Contact />,
+  },
+
   {
     path: '/admin',
     element: <Admin />, // Admin me <Outlet /> lagao agar nested child routes chahiye

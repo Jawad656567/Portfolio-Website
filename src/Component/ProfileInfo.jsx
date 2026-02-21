@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const UserProfileCard = () => {
   return (
     <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden">
@@ -42,11 +44,14 @@ const UserProfileCard = () => {
             <span>University of Swabi</span>
           </div>
 
-          {/* Contact info */}
+           {/* Contact info */}
           <div className="mt-3">
-            <a href="#" className="text-blue-600 font-medium hover:underline text-sm">
+            <Link 
+              to="/contact" 
+              className="text-blue-600 font-medium hover:underline text-sm"
+            >
               Contact info
-            </a>
+            </Link>
           </div>
         </div>
 
