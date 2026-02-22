@@ -22,7 +22,7 @@ export default function Imports() {
                 <About />
             </section>
 
-            <section id="Activities">
+            <section id="activities">
                 <Activities />
             </section>
 

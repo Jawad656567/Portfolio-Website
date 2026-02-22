@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import {
   FaHome,
   FaUser,
+  FaTasks,
+  FaGraduationCap,
+  FaBriefcase,
   FaTools,
-  FaProjectDiagram,
-  FaEnvelope,
   FaBars,
   FaTimes,
 } from "react-icons/fa";
@@ -14,13 +15,14 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   // menu items with section ids (paths removed)
-  const menuItems = [
-    { icon: <FaHome size={20} />, label: "Home", id: "home" },
-    { icon: <FaUser size={20} />, label: "About", id: "about" },
-    { icon: <FaTools size={20} />, label: "Skills", id: "skills" },
-    { icon: <FaProjectDiagram size={20} />, label: "Projects", id: "projects" },
-    { icon: <FaEnvelope size={20} />, label: "Contact", id: "contact" },
-  ];
+const menuItems = [
+  { icon: <FaHome size={20} />, label: "Home", id: "home" },
+  { icon: <FaUser size={20} />, label: "About", id: "about" },
+  { icon: <FaTasks size={20} />, label: "Activities", id: "activities" },
+  { icon: <FaGraduationCap size={20} />, label: "Education", id: "education" },
+  { icon: <FaBriefcase size={20} />, label: "Experience", id: "experience" },
+  { icon: <FaTools size={20} />, label: "Skills", id: "skill" },
+];
 
   // scroll function
   const scrollToSection = (id) => {
