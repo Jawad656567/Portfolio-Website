@@ -3,10 +3,9 @@ import ProfileInfo from "./ProfileInfo";
 import About from "./About";
 import Activities from "./Activities";
 import Skill from './Skill.jsx';
-import Project from "./Project";
-import Contact from "./Contact";
 import Education from "./Education.jsx";
 import Experience from "./Experience.jsx";
+import Footer from "./Footer.jsx";
 
 export default function Imports() {
     return (
@@ -37,6 +36,10 @@ export default function Imports() {
 
             <section id="skill">
                 <Skill />
+            </section>
+
+            <section id="footer">
+                <Footer />
             </section>
 
         </>
