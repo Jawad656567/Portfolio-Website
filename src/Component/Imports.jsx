@@ -1,10 +1,12 @@
 import ProfileHeader from "./ProfileHeader";
 import ProfileInfo from "./ProfileInfo";
 import About from "./About";
+import Featured from "./Featured.jsx";
 import Activities from "./Activities";
 import Skill from './Skill.jsx';
 import Education from "./Education.jsx";
 import Experience from "./Experience.jsx";
+import MainContact from "./MainContact.jsx";
 import Footer from "./Footer.jsx";
 
 export default function Imports() {
@@ -21,21 +23,28 @@ export default function Imports() {
             <section id="about">
                 <About />
             </section>
+            <section id="">
+                <Featured />
+            </section>
 
             <section id="activities">
                 <Activities />
             </section>
 
-             <section id="education">
+            <section id="education">
                 <Education />
             </section>
 
-             <section id="experience">
-                <Experience/>
+            <section id="experience">
+                <Experience />
             </section>
 
             <section id="skill">
                 <Skill />
+            </section>
+
+            <section id="MainContact">
+                <MainContact />
             </section>
 
             <section id="footer">
