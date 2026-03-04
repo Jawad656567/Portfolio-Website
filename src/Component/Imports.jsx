@@ -23,10 +23,10 @@ export default function Imports() {
             <section id="about">
                 <About />
             </section>
-
-            {/* <section id="featured">
+            
+            <section id="featured">
                 <Featured />
-            </section> */}
+            </section>
 
             <section id="activities">
                 <Activities />
