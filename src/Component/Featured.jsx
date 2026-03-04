@@ -6,10 +6,10 @@ const featuredData = [
   { id: 2, image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c", title: "Todo React App" },
   { id: 3, image: "https://images.unsplash.com/photo-1521791136064-7986c2920216", title: "Portfolio Website" },
   { id: 4, image: "https://images.unsplash.com/photo-1506765515384-028b60a970df", title: "Ecommerce Website" },
-   { id: 1, image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085", title: "Tailor Management System" },
-  { id: 2, image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c", title: "Todo React App" },
-  { id: 3, image: "https://images.unsplash.com/photo-1521791136064-7986c2920216", title: "Portfolio Website" },
-  { id: 4, image: "https://images.unsplash.com/photo-1506765515384-028b60a970df", title: "Ecommerce Website" },
+   { id: 5, image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085", title: "Tailor Management System" },
+  { id: 6, image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c", title: "Todo React App" },
+  { id: 7, image: "https://images.unsplash.com/photo-1521791136064-7986c2920216", title: "Portfolio Website" },
+  { id: 8, image: "https://images.unsplash.com/photo-1506765515384-028b60a970df", title: "Ecommerce Website" },
 ];
 
 export default function FeaturedSection() {
