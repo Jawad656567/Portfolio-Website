@@ -1,15 +1,15 @@
 import React from 'react';
 import Navbar from './Component/Navbar';
 import Imports from './Component/Imports';
-
-
-// import ProfileInfo from './Component/ProfileInfo'
+import Loader from './Component/Loader'; 
 
 export default function App() {
   return (
-    <>
-      <Navbar />
-      <Imports />
-     </>
+    <Loader duration={2000}>
+      <>
+        <Navbar />
+        <Imports />
+      </>
+    </Loader>
   );
 }

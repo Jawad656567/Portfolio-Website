@@ -44,10 +44,10 @@ const UserProfileCard = () => {
             <span>University of Swabi</span>
           </div>
 
-           {/* Contact info */}
+          {/* Contact info */}
           <div className="mt-3">
-            <Link 
-              to="/contact" 
+            <Link
+              to="/contact"
               className="text-blue-600 font-medium hover:underline text-sm"
             >
               Contact info
@@ -72,19 +72,19 @@ const UserProfileCard = () => {
             </span>
           </div>
 
-        <div className="flex items-center space-x-3">
-  <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250" className="h-5 w-5 text-white">
-      <circle cx="125" cy="125" r="20" fill="currentColor" />
-      <ellipse cx="125" cy="125" rx="100" ry="50" fill="none" stroke="currentColor" strokeWidth="10"/>
-      <ellipse cx="125" cy="125" rx="100" ry="50" fill="none" stroke="currentColor" strokeWidth="10" transform="rotate(60 125 125)"/>
-      <ellipse cx="125" cy="125" rx="100" ry="50" fill="none" stroke="currentColor" strokeWidth="10" transform="rotate(120 125 125)"/>
-    </svg>
-  </div>
-  <span className="font-medium text-black text-sm">
-    React & Tailwind CSS
-  </span>
-</div>
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250" className="h-5 w-5 text-white">
+                <circle cx="125" cy="125" r="20" fill="currentColor" />
+                <ellipse cx="125" cy="125" rx="100" ry="50" fill="none" stroke="currentColor" strokeWidth="10" />
+                <ellipse cx="125" cy="125" rx="100" ry="50" fill="none" stroke="currentColor" strokeWidth="10" transform="rotate(60 125 125)" />
+                <ellipse cx="125" cy="125" rx="100" ry="50" fill="none" stroke="currentColor" strokeWidth="10" transform="rotate(120 125 125)" />
+              </svg>
+            </div>
+            <span className="font-medium text-black text-sm">
+              React & Tailwind CSS
+            </span>
+          </div>
 
 
           {/* Continuous Learning */}
