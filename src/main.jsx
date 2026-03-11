@@ -4,17 +4,21 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Admin from './admin/MainAdmin.jsx'; // new parent route
-import Banner from './admin/Banner.jsx';
+import ProtectedRoute from './admin/ProtectedRoute.jsx';
 import AllActivity from './Component/AllActivity.jsx';
 import Contact from './Component/Contact.jsx';
+import Login from './Component/Login.jsx';
+
+import Admin from './admin/MainAdmin.jsx'; // new parent route
+import Banner from './admin/Banner.jsx';
+import About from './admin/about.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/', 
     element: <App />,   
   },
-  // Admin as new parent route
+  
    {
     path: '/activity',
     element: <AllActivity />,
@@ -23,15 +27,23 @@ const router = createBrowserRouter([
     path: '/contact',
     element: <Contact />,
   },
-
+  {
+    path: '/login',
+    element: <Login />,
+  },
+// Admin as new parent route
   {
     path: '/admin',
-    element: <Admin />, // Admin me <Outlet /> lagao agar nested child routes chahiye
-    children: [
-      // example child routes for admin
-      { path: 'banner', element: <Banner /> },
-      // { path: 'users', element: <Users /> },
-    ],
+    element:  (
+    <ProtectedRoute>
+      <Admin />
+    </ProtectedRoute>
+  ),
+     children: [
+    // { index: true, element: <Dashboard /> },
+    { path: 'banner', element: <Banner /> },
+    { path: 'about', element: <About /> },
+  ],
   },
 ]);
 

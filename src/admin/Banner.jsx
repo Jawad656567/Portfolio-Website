@@ -1,97 +1,76 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const Banner = () => {
-  const [banner, setBanner] = useState("");
-  const [profilePic, setProfilePic] = useState("");
+const AdminProfile = () => {
+  const [banner, setBanner] = useState(null);
+  const [profilePic, setProfilePic] = useState(null);
+  const [message, setMessage] = useState("");
+  const [previewBanner, setPreviewBanner] = useState(null);
+  const [previewProfile, setPreviewProfile] = useState(null);
 
-  // Load previous saved images
   useEffect(() => {
-    const savedBanner = localStorage.getItem("banner");
-    const savedProfile = localStorage.getItem("profilePic");
-    if (savedBanner) setBanner(savedBanner);
-    if (savedProfile) setProfilePic(savedProfile);
+    const fetchProfile = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/profile");
+        setPreviewBanner(res.data.banner);
+        setPreviewProfile(res.data.profilePic);
+      } catch (err) {
+        console.error("Error fetching profile:", err);
+      }
+    };
+    fetchProfile();
   }, []);
 
-  const handleFileChange = (e, type) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    if (banner) formData.append("banner", banner);
+    if (profilePic) formData.append("profilePic", profilePic);
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (type === "banner") setBanner(reader.result);
-      if (type === "profile") setProfilePic(reader.result);
-    };
-    reader.readAsDataURL(file);
-  };
+    try {
+      const res = await axios.put("http://localhost:5000/api/profile", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      setMessage(res.data.message);
 
-  const handleSave = () => {
-    if (!banner || !profilePic) {
-      alert("Please upload both Banner and Profile Pic!");
-      return;
+      if (banner) {
+        const reader = new FileReader();
+        reader.onloadend = () => setPreviewBanner(reader.result);
+        reader.readAsDataURL(banner);
+      }
+      if (profilePic) {
+        const reader = new FileReader();
+        reader.onloadend = () => setPreviewProfile(reader.result);
+        reader.readAsDataURL(profilePic);
+      }
+
+      setBanner(null);
+      setProfilePic(null);
+    } catch (err) {
+      console.error(err);
+      setMessage("Error updating profile.");
     }
-    localStorage.setItem("banner", banner);
-    localStorage.setItem("profilePic", profilePic);
-    alert("Saved successfully!");
   };
 
   return (
-    <div className="p-6 min-h-screen bg-gray-100 flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-6">Update Banner & Profile Pic</h1>
-
-      {/* Preview */}
-      <div className="relative w-full max-w-4xl h-64 mb-6">
-        {banner ? (
-          <img
-            src={banner}
-            alt="Banner Preview"
-            className="w-full h-full object-cover rounded"
-          />
-        ) : (
-          <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">
-            Banner Preview
-          </div>
-        )}
-
-        {/* Profile pic inside banner */}
-        <div className="absolute -bottom-12 left-6 w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg">
-          {profilePic ? (
-            <img
-              src={profilePic}
-              alt="Profile Preview"
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full bg-gray-400 flex items-center justify-center text-white">
-              Profile
-            </div>
-          )}
+    <div className="max-w-xl mx-auto p-4">
+      <h2 className="text-2xl font-bold mb-4">Update Profile</h2>
+      {message && <p className="mb-4">{message}</p>}
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <div>
+          <label>Banner:</label>
+          <input type="file" name="banner" onChange={(e) => setBanner(e.target.files[0])} />
+          {previewBanner && <img src={previewBanner} alt="Banner Preview" className="mt-2 w-full h-32 object-cover border" />}
         </div>
-      </div>
-
-      {/* Upload Inputs */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-4">
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => handleFileChange(e, "banner")}
-          className="border px-3 py-2 rounded"
-        />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => handleFileChange(e, "profile")}
-          className="border px-3 py-2 rounded"
-        />
-      </div>
-
-      <button
-        onClick={handleSave}
-        className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-      >
-        Save Images
-      </button>
+        <div>
+          <label>Profile Pic:</label>
+          <input type="file" name="profilePic" onChange={(e) => setProfilePic(e.target.files[0])} />
+          {previewProfile && <img src={previewProfile} alt="Profile Preview" className="mt-2 w-32 h-32 object-cover border rounded-full" />}
+        </div>
+        <button type="submit" className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Update</button>
+      </form>
     </div>
   );
 };
 
-export default Banner;
+export default AdminProfile;
