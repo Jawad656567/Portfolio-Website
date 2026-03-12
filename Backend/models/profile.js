@@ -1,14 +1,7 @@
-import mongoose from "mongoose";
+import React from 'react'
 
-const ProfileSchema = new mongoose.Schema({
-  banner: {
-    data: Buffer,
-    contentType: String,
-  },
-  profilePic: {
-    data: Buffer,
-    contentType: String,
-  },
-}, { timestamps: true });
-
-export default mongoose.model("Profile", ProfileSchema);
+export default function profile() {
+  return (
+    <div>profile</div>
+  )
+}

@@ -107,7 +107,7 @@ const PORT = process.env.PORT || 5000;
 // app.listen server ko start karta hai
 // aur specific port par run karta hai
 
-app.listen(PORT, () => 
+app.listen(PORT, () =>
   console.log(`Server running on port ${PORT}`)
 );
 
@@ -129,5 +129,5 @@ const aboutRoutes = require("./routes/about");
 app.use("/api/about", aboutRoutes);
 
 //profile routes
-const profileroute = require("./routes/profile");
-app.use("/api/profile", profileroute);
+// const profileroute = require("./routes/profile");
+// app.use("/api/profile", profileroute);
