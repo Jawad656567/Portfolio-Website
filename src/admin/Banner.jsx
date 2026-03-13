@@ -8,14 +8,18 @@ const AdminProfile = () => {
   const [previewBanner, setPreviewBanner] = useState(null);
   const [previewProfile, setPreviewProfile] = useState(null);
 
+  // Fetch current profile on mount
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const res = await axios.get("http://localhost:5000/api/profile");
-        setPreviewBanner(res.data.banner);
-        setPreviewProfile(res.data.profilePic);
+        const data = res.data || {};
+        setPreviewBanner(data.banner || "bannerr.webp");
+        setPreviewProfile(data.profilePic || "profile.jpeg");
       } catch (err) {
         console.error("Error fetching profile:", err);
+        setPreviewBanner("bannerr.webp");
+        setPreviewProfile("profile.jpeg");
       }
     };
     fetchProfile();
@@ -28,22 +32,19 @@ const AdminProfile = () => {
     if (profilePic) formData.append("profilePic", profilePic);
 
     try {
-      const res = await axios.put("http://localhost:5000/api/profile", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      setMessage(res.data.message);
+      // Correct POST route
+      const res = await axios.post(
+        "http://localhost:5000/api/profile/upload",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      setMessage("Profile updated successfully!");
 
-      if (banner) {
-        const reader = new FileReader();
-        reader.onloadend = () => setPreviewBanner(reader.result);
-        reader.readAsDataURL(banner);
-      }
-      if (profilePic) {
-        const reader = new FileReader();
-        reader.onloadend = () => setPreviewProfile(reader.result);
-        reader.readAsDataURL(profilePic);
-      }
+      // Update previews
+      if (res.data.banner) setPreviewBanner(res.data.banner);
+      if (res.data.profilePic) setPreviewProfile(res.data.profilePic);
 
+      // Clear input states
       setBanner(null);
       setProfilePic(null);
     } catch (err) {
@@ -58,16 +59,41 @@ const AdminProfile = () => {
       {message && <p className="mb-4">{message}</p>}
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div>
-          <label>Banner:</label>
-          <input type="file" name="banner" onChange={(e) => setBanner(e.target.files[0])} />
-          {previewBanner && <img src={previewBanner} alt="Banner Preview" className="mt-2 w-full h-32 object-cover border" />}
+          <label className="block font-semibold">Banner:</label>
+          <input
+            type="file"
+            name="banner"
+            onChange={(e) => setBanner(e.target.files[0])}
+          />
+          {previewBanner && (
+            <img
+              src={previewBanner}
+              alt="Banner Preview"
+              className="mt-2 w-full h-32 object-cover border"
+            />
+          )}
         </div>
         <div>
-          <label>Profile Pic:</label>
-          <input type="file" name="profilePic" onChange={(e) => setProfilePic(e.target.files[0])} />
-          {previewProfile && <img src={previewProfile} alt="Profile Preview" className="mt-2 w-32 h-32 object-cover border rounded-full" />}
+          <label className="block font-semibold">Profile Pic:</label>
+          <input
+            type="file"
+            name="profilePic"
+            onChange={(e) => setProfilePic(e.target.files[0])}
+          />
+          {previewProfile && (
+            <img
+              src={previewProfile}
+              alt="Profile Preview"
+              className="mt-2 w-32 h-32 object-cover border rounded-full"
+            />
+          )}
         </div>
-        <button type="submit" className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Update</button>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+        >
+          Update
+        </button>
       </form>
     </div>
   );

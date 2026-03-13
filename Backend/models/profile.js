@@ -1,7 +1,14 @@
-import React from 'react'
+const mongoose = require("mongoose");
 
-export default function profile() {
-  return (
-    <div>profile</div>
-  )
-}
+const profileSchema = new mongoose.Schema({
+  banner: {
+    type: String,
+    default: ""
+  },
+  profilePic: {
+    type: String,
+    default: ""
+  }
+});
+
+module.exports = mongoose.model("Profile", profileSchema);

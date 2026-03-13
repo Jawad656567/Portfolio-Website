@@ -129,5 +129,6 @@ const aboutRoutes = require("./routes/about");
 app.use("/api/about", aboutRoutes);
 
 //profile routes
-// const profileroute = require("./routes/profile");
-// app.use("/api/profile", profileroute);
+// Profile APIs
+const profileRoutes = require("./routes/profile");
+app.use("/api/profile", profileRoutes);

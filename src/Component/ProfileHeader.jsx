@@ -10,15 +10,21 @@ const ProfileHeader = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
+        // Correct GET route
         const res = await axios.get("http://localhost:5000/api/profile");
-        if (res.data) {
-          setProfile({
-            bannerUrl: res.data.bannerUrl || "bannerr.webp",
-            profilePicUrl: res.data.profilePicUrl || "profile.jpeg",
-          });
-        }
-      } catch (err) {
-        console.error("Error fetching profile:", err);
+
+        // Safe check
+        const data = res.data || {};
+        setProfile({
+          bannerUrl: data.banner || "bannerr.webp",
+          profilePicUrl: data.profilePic || "profile.jpeg",
+        });
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+        setProfile({
+          bannerUrl: "bannerr.webp",
+          profilePicUrl: "profile.jpeg",
+        });
       }
     };
 
