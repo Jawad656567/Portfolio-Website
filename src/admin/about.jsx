@@ -42,17 +42,19 @@ export default function AdminAbout() {
 
   // Handle update submit
   const handleSubmit = async () => {
-    setSaving(true);
-    try {
-      await axios.put(BACKEND_URL, { paragraphs });
-      alert("About Updated Successfully");
-    } catch (err) {
-      console.error("Update Error:", err);
-      alert("Error updating About section. Check console.");
-    } finally {
-      setSaving(false);
-    }
-  };
+  setSaving(true);
+  try {
+    console.log("Sending paragraphs:", paragraphs); // ✅ Debug log
+    const res = await axios.put(BACKEND_URL, { paragraphs });
+    console.log("Response from server:", res.data); // ✅ Debug log
+    alert("About Updated Successfully");
+  } catch (err) {
+    console.error("Update Error:", err);
+    alert("Error updating About section. Check console.");
+  } finally {
+    setSaving(false);
+  }
+};
 
   if (loading) return <div className="p-6">Loading...</div>;
 

@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
-const AboutSchema = new mongoose.Schema({
-  paragraphs: [
-    {
-      icon: String,
-      text: String
-    }
-  ]
+const paragraphSchema = new mongoose.Schema({
+  icon: { type: String, required: true },
+  text: { type: String, required: true }
 });
 
-module.exports = mongoose.model("About", AboutSchema, "abouts");
+const aboutSchema = new mongoose.Schema({
+  paragraphs: [paragraphSchema]
+});
+
+module.exports = mongoose.model("About", aboutSchema);
