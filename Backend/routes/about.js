@@ -40,3 +40,6 @@ router.put("/", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+// ✅ Export the router
+module.exports = router;
