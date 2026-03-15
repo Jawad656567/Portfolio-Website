@@ -11,7 +11,9 @@ const ProfileHeader = () => {
     const fetchProfile = async () => {
       try {
         // Correct GET route
-        const res = await axios.get("http://localhost:5000/api/profile");
+        const API = process.env.REACT_APP_API_URL;
+
+const res = await axios.get(`${API}/api/profile`);
 
         // Safe check
         const data = res.data || {};

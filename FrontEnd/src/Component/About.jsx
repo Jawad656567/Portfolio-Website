@@ -18,7 +18,8 @@ export default function LinkedInAbout() {
     const fetchAbout = async () => {
       try {
         // About.jsx
-        const res = await axios.get("http://localhost:5000/api/about"); // yaha backend ka port check karo
+        const API = process.env.REACT_APP_API_URL;
+        const res = await axios.get(`${API}/api/about`);
         console.log("Fetched About Data:", res.data);
 
         // Agar MongoDB me data exist karta hai, use set karo
