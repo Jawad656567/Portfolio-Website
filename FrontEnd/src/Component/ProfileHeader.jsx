@@ -7,30 +7,38 @@ const ProfileHeader = () => {
     profilePicUrl: "profile.jpeg",
   });
 
+  // Fetch function
+  const fetchProfile = async () => {
+    try {
+      const API = import.meta.env.VITE_API_URL; // Vite compatible
+      console.log("Fetching profile from:", API);
+
+      const res = await axios.get(`${API}/api/about`);
+
+      const data = res.data || {};
+      setProfile({
+        bannerUrl: data.banner || "bannerr.webp",
+        profilePicUrl: data.profilePic || "profile.jpeg",
+      });
+    } catch (error) {
+      console.error("Error fetching profile:", error.response?.data || error);
+      setProfile({
+        bannerUrl: "bannerr.webp",
+        profilePicUrl: "profile.jpeg",
+      });
+    }
+  };
+
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        // Correct GET route
-       const API = import.meta.env.VITE_API_URL; // ✅ Vite compatible
-        console.log(API);
-        const res = await axios.get(`${API}/api/about`);
-
-        // Safe check
-        const data = res.data || {};
-        setProfile({
-          bannerUrl: data.banner || "bannerr.webp",
-          profilePicUrl: data.profilePic || "profile.jpeg",
-        });
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-        setProfile({
-          bannerUrl: "bannerr.webp",
-          profilePicUrl: "profile.jpeg",
-        });
-      }
-    };
-
     fetchProfile();
+
+    // Listen for a custom event to refresh profile after admin update
+    const handleProfileUpdate = () => fetchProfile();
+    window.addEventListener("profileUpdated", handleProfileUpdate);
+
+    return () => {
+      window.removeEventListener("profileUpdated", handleProfileUpdate);
+    };
   }, []);
 
   return (

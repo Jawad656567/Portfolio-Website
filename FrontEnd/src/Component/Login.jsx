@@ -10,71 +10,51 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Ensure username/password not empty
-    if (!username || !password) {
-      alert("Please enter both username and password.");
-      return;
-    }
-
     try {
-      const API = import.meta.env.VITE_API_URL; // Vite
-      if (!API) {
-        alert("Backend URL not configured. Contact developer.");
-        return;
-      }
+      // backend API call
+     const API = import.meta.env.VITE_API_URL; // ✅ Vite compatible
 
-      const response = await axios.post(`${API}/api/auth/login`, {
-        username,
-        password,
-      });
+const response = await axios.post(`${API}/api/auth/login`, {
+  username,
+  password,
+});
 
       console.log("API Response:", response.data);
 
       if (response.data.message === "Login successful") {
         localStorage.setItem("admin", "true");
-        navigate("/admin/banner");
-      } else {
-        // Backend might return 'User not found' or custom message
-        alert(response.data.message || "Login failed");
+        navigate("/admin/banner"); // login ke baad redirect
       }
     } catch (error) {
-      // Proper error handling for 400/401 etc
-      if (error.response && error.response.data) {
-        console.warn("Login failed:", error.response.data);
-        alert(error.response.data.message || "Invalid credentials");
-      } else {
-        console.error("Axios/network error:", error);
-        alert("Server error. Check console.");
-      }
+      console.error(error.response?.data);
+      alert(error.response?.data?.message || "Server error");
     }
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form
-        onSubmit={handleLogin}
+      <form 
+        onSubmit={handleLogin} 
         className="bg-white p-8 rounded shadow-md w-96"
       >
         <h1 className="text-2xl mb-6 text-center">Admin Login</h1>
-        <input
-          type="text"
-          placeholder="Username"
+        <input 
+          type="text" 
+          placeholder="Username" 
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="w-full mb-4 p-2 border rounded"
-          required
         />
-        <input
-          type="password"
-          placeholder="Password"
+        <input 
+          type="password" 
+          placeholder="Password" 
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="w-full mb-6 p-2 border rounded"
-          required
         />
-        <button
+        <button 
           type="submit"
-          className="w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition"
+          className="w-full bg-black text-white py-2 rounded"
         >
           Login
         </button>
