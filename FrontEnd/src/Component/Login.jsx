@@ -10,17 +10,18 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    try {
-      // ✅ Vite-compatible environment variable
-      const API = import.meta.env.VITE_API_URL;
+    // Ensure username/password not empty
+    if (!username || !password) {
+      alert("Please enter both username and password.");
+      return;
+    }
 
+    try {
+      const API = import.meta.env.VITE_API_URL; // Vite
       if (!API) {
-        console.error("VITE_API_URL is undefined! Check your .env file.");
         alert("Backend URL not configured. Contact developer.");
         return;
       }
-
-      console.log("Using Backend URL:", API);
 
       const response = await axios.post(`${API}/api/auth/login`, {
         username,
@@ -31,13 +32,20 @@ const Login = () => {
 
       if (response.data.message === "Login successful") {
         localStorage.setItem("admin", "true");
-        navigate("/admin/banner"); // login ke baad redirect
+        navigate("/admin/banner");
       } else {
+        // Backend might return 'User not found' or custom message
         alert(response.data.message || "Login failed");
       }
     } catch (error) {
-      console.error("Axios Error:", error);
-      alert(error.response?.data?.message || "Server error. Check console.");
+      // Proper error handling for 400/401 etc
+      if (error.response && error.response.data) {
+        console.warn("Login failed:", error.response.data);
+        alert(error.response.data.message || "Invalid credentials");
+      } else {
+        console.error("Axios/network error:", error);
+        alert("Server error. Check console.");
+      }
     }
   };
 

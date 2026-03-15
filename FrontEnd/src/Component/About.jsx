@@ -18,7 +18,7 @@ export default function LinkedInAbout() {
     const fetchAbout = async () => {
       try {
         // About.jsx
-        const API = process.env.REACT_APP_API_URL;
+      const API = import.meta.env.VITE_API_URL; // ✅ Vite compatible
         const res = await axios.get(`${API}/api/about`);
         console.log("Fetched About Data:", res.data);
 

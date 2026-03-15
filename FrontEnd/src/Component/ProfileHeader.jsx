@@ -11,7 +11,7 @@ const ProfileHeader = () => {
     const fetchProfile = async () => {
       try {
         // Correct GET route
-        const API = process.env.REACT_APP_API_URL;
+       const API = import.meta.env.VITE_API_URL; // ✅ Vite compatible
         console.log(API);
         const res = await axios.get(`${API}/api/about`);
 
