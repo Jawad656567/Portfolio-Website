@@ -12,10 +12,12 @@ const Login = () => {
 
     try {
       // backend API call
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
-        username,
-        password,
-      });
+      const API = process.env.REACT_APP_API_URL;
+
+const response = await axios.post(`${API}/api/auth/login`, {
+  username,
+  password,
+});
 
       console.log("API Response:", response.data);
 
