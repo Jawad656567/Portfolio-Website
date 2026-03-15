@@ -12,8 +12,8 @@ const ProfileHeader = () => {
       try {
         // Correct GET route
         const API = process.env.REACT_APP_API_URL;
-
-const res = await axios.get(`${API}/api/about`);
+        console.log(API);
+        const res = await axios.get(`${API}/api/about`);
 
         // Safe check
         const data = res.data || {};
