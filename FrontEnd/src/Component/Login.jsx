@@ -12,7 +12,7 @@ const Login = () => {
 
     try {
       // backend API call
-     const API = import.meta.env.VITE_API_URL; // ✅ Vite compatible
+    const API = "http://localhost:5000";
 
 const response = await axios.post(`${API}/api/auth/login`, {
   username,

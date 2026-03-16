@@ -17,10 +17,9 @@ export default function LinkedInAbout() {
   useEffect(() => {
     const fetchAbout = async () => {
       try {
-        // About.jsx
-      const API = import.meta.env.VITE_API_URL; // ✅ Vite compatible
-        const res = await axios.get(`${API}/api/about`);
-        console.log("Fetched About Data:", res.data);
+         const API = "http://localhost:5000"; // ✅ sirf local backend
+         const res = await axios.get(`${API}/api/about`);
+      console.log("Fetched About Data:", res.data);
 
         // Agar MongoDB me data exist karta hai, use set karo
         if (res.data && res.data.paragraphs && res.data.paragraphs.length > 0) {
