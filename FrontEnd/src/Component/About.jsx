@@ -17,7 +17,7 @@ export default function LinkedInAbout() {
   useEffect(() => {
     const fetchAbout = async () => {
       try {
-         const API = import.meta.env.VITE_API_URL;
+         const API = "http://localhost:5000"; // ✅ sirf local backend
          const res = await axios.get(`${API}/api/about`);
       console.log("Fetched About Data:", res.data);
 
