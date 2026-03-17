@@ -16,7 +16,7 @@ const AdminProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`${API_URL}/profile`);
+        const res = await axios.get(`${API_URL}/api/profile`);
         const data = res.data || {};
         setPreviewBanner(data.banner || "bannerr.webp");
         setPreviewProfile(data.profilePic || "profile.jpeg");
