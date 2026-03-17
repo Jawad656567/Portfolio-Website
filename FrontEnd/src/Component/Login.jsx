@@ -11,19 +11,17 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // backend API call
-    const API = import.meta.env.VITE_API_URL;
-
-const response = await axios.post(`${API}/api/auth/login`, {
-  username,
-  password,
-});
+      const API = import.meta.env.VITE_API_URL;
+      const response = await axios.post(`${API}/api/auth/login`, {
+        username,
+        password,
+      });
 
       console.log("API Response:", response.data);
 
       if (response.data.message === "Login successful") {
         localStorage.setItem("admin", "true");
-        navigate("/admin/banner"); // login ke baad redirect
+        navigate("/admin/banner");
       }
     } catch (error) {
       console.error(error.response?.data);
@@ -32,33 +30,56 @@ const response = await axios.post(`${API}/api/auth/login`, {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form 
-        onSubmit={handleLogin} 
-        className="bg-white p-8 rounded shadow-md w-96"
-      >
-        <h1 className="text-2xl mb-6 text-center">Admin Login</h1>
-        <input 
-          type="text" 
-          placeholder="Username" 
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-6 p-2 border rounded"
-        />
-        <button 
-          type="submit"
-          className="w-full bg-black text-white py-2 rounded"
+    <div className="flex items-center justify-center min-h-screen bg-white px-4">
+      <div className="w-full max-w-md">
+        <form 
+          onSubmit={handleLogin} 
+          className="bg-white shadow-lg rounded-xl p-8 sm:p-10 border border-gray-200"
         >
-          Login
-        </button>
-      </form>
+          <h1 className="text-3xl font-bold mb-8 text-center text-black">
+            Admin Login
+          </h1>
+
+          <div className="mb-6">
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Username
+            </label>
+            <input 
+              type="text" 
+              placeholder="Enter username" 
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition"
+              required
+            />
+          </div>
+
+          <div className="mb-8">
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input 
+              type="password" 
+              placeholder="Enter password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition"
+              required
+            />
+          </div>
+
+          <button 
+            type="submit"
+            className="w-full py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 transition"
+          >
+            Login
+          </button>
+
+          <p className="mt-6 text-center text-gray-500 text-sm">
+            © {new Date().getFullYear()} JWD CODE
+          </p>
+        </form>
+      </div>
     </div>
   );
 };

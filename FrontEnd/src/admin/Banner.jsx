@@ -1,4 +1,3 @@
-// AdminProfile.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -8,11 +7,11 @@ const AdminProfile = () => {
   const [message, setMessage] = useState("");
   const [previewBanner, setPreviewBanner] = useState(null);
   const [previewProfile, setPreviewProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
 
-  // Backend URL from environment variable
-  const API_URL = import.meta.env.VITE_API_URL; // ✅ Local or Live automatically
+  const API_URL = import.meta.env.VITE_API_URL;
 
-  // Fetch current profile on mount
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -20,10 +19,12 @@ const AdminProfile = () => {
         const data = res.data || {};
         setPreviewBanner(data.banner || "bannerr.webp");
         setPreviewProfile(data.profilePic || "profile.jpeg");
+        setLoading(false);
       } catch (err) {
         console.error("Error fetching profile:", err);
         setPreviewBanner("bannerr.webp");
         setPreviewProfile("profile.jpeg");
+        setLoading(false);
       }
     };
     fetchProfile();
@@ -42,61 +43,94 @@ const AdminProfile = () => {
         { headers: { "Content-Type": "multipart/form-data" } }
       );
 
-      setMessage("Profile updated successfully!");
-
-      // Update previews
       if (res.data.banner) setPreviewBanner(res.data.banner);
       if (res.data.profilePic) setPreviewProfile(res.data.profilePic);
-
-      // Clear input states
       setBanner(null);
       setProfilePic(null);
+
+      // Show popup alert
+      setMessage("Profile updated successfully!");
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000); // 3 sec
     } catch (err) {
       console.error(err);
       setMessage("Error updating profile.");
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Update Profile</h2>
-      {message && <p className="mb-4">{message}</p>}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <div className="max-w-3xl mx-auto p-4 sm:p-6 lg:p-8">
+      <h2 className="text-3xl font-bold mb-6 text-center">Update Profile</h2>
+
+      {/* Alert / Popup */}
+      {showAlert && (
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded shadow-lg z-50 transition-all duration-300">
+          {message}
+        </div>
+      )}
+
+      {/* Banner Preview */}
+      <div className="relative w-full mb-20 sm:mb-28">
+        <div className="w-full aspect-[4/1] lg:h-64 overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+          {loading ? (
+            <div className="w-full h-full shimmer"></div>
+          ) : (
+            <img
+              src={previewBanner}
+              alt="Banner Preview"
+              className="w-full h-full object-cover object-top"
+            />
+          )}
+        </div>
+
+        {/* Profile Pic Preview */}
+        <div className="absolute left-4 sm:left-8 -bottom-16 sm:-bottom-24">
+          <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full border-4 border-white overflow-hidden bg-white shadow-md">
+            {loading ? (
+              <div className="w-full h-full shimmer rounded-full"></div>
+            ) : (
+              <img
+                src={previewProfile}
+                alt="Profile Preview"
+                className="w-full h-full object-cover object-top"
+              />
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Upload Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-6 bg-white p-6 sm:p-8 rounded-xl shadow-md border border-gray-200"
+      >
         <div>
-          <label className="block font-semibold">Banner:</label>
+          <label className="block font-semibold mb-2 text-gray-700">Banner</label>
           <input
             type="file"
             name="banner"
             onChange={(e) => setBanner(e.target.files[0])}
+            className="mb-3"
           />
-          {previewBanner && (
-            <img
-              src={previewBanner}
-              alt="Banner Preview"
-              className="mt-2 w-full h-32 object-cover border"
-            />
-          )}
         </div>
+
         <div>
-          <label className="block font-semibold">Profile Pic:</label>
+          <label className="block font-semibold mb-2 text-gray-700">Profile Picture</label>
           <input
             type="file"
             name="profilePic"
             onChange={(e) => setProfilePic(e.target.files[0])}
+            className="mb-3"
           />
-          {previewProfile && (
-            <img
-              src={previewProfile}
-              alt="Profile Preview"
-              className="mt-2 w-32 h-32 object-cover border rounded-full"
-            />
-          )}
         </div>
+
         <button
           type="submit"
-          className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+          className="w-full py-3 bg-black text-white font-semibold rounded-xl hover:bg-gray-900 transition-all duration-300"
         >
-          Update
+          Update Profile
         </button>
       </form>
     </div>
