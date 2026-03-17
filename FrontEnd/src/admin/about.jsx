@@ -14,7 +14,7 @@ export default function AdminAbout() {
   const [saving, setSaving] = useState(false);
 
   // Backend URL
- const BACKEND_URL = `${import.meta.env.VITE_API_URL}/about`; // apne backend port check karo
+ const BACKEND_URL = `${import.meta.env.VITE_API_URL}/api/about`; // apne backend port check karo
 
   // Fetch current about data
   useEffect(() => {

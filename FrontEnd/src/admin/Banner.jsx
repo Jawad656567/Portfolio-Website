@@ -37,7 +37,7 @@ const AdminProfile = () => {
 
     try {
       const res = await axios.post(
-        `${API_URL}/profile/upload`,
+        `${API_URL}/api/profile/upload`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
