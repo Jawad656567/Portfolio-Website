@@ -1,3 +1,4 @@
+// AdminProfile.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -8,11 +9,14 @@ const AdminProfile = () => {
   const [previewBanner, setPreviewBanner] = useState(null);
   const [previewProfile, setPreviewProfile] = useState(null);
 
+  // Backend URL from environment variable
+  const API_URL = import.meta.env.VITE_API_URL; // ✅ Local or Live automatically
+
   // Fetch current profile on mount
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/profile");
+        const res = await axios.get(`${API_URL}/profile`);
         const data = res.data || {};
         setPreviewBanner(data.banner || "bannerr.webp");
         setPreviewProfile(data.profilePic || "profile.jpeg");
@@ -23,7 +27,7 @@ const AdminProfile = () => {
       }
     };
     fetchProfile();
-  }, []);
+  }, [API_URL]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,12 +36,12 @@ const AdminProfile = () => {
     if (profilePic) formData.append("profilePic", profilePic);
 
     try {
-      // Correct POST route
       const res = await axios.post(
-        "http://localhost:5000/api/profile/upload",
+        `${API_URL}/profile/upload`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
+
       setMessage("Profile updated successfully!");
 
       // Update previews
