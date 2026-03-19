@@ -1,6 +1,18 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const UserProfileCard = () => {
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/ProfileInfo")
+      .then(res => setProfile(res.data))
+      .catch(err => console.log(err));
+  }, []);
+
+  if (!profile) return <p>Loading...</p>;
+
   return (
     <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden">
 
@@ -10,38 +22,20 @@ const UserProfileCard = () => {
         {/* Center: Name & Info */}
         <div className="lg:pt-24 pt-12 flex-1">
           <h2 className="text-2xl font-bold text-gray-900">
-            Jawad Ali <span className="text-gray-500 text-lg">CS · 6th Semester</span>
+            {profile.name} <span className="text-gray-500 text-lg">{profile.semester}</span>
           </h2>
-          <p className="text-gray-700 mt-1">
-            CS Student 🎓 | Front-End Developer 💻
-          </p>
-          <p className="text-gray-700 mt-1">
-            Currently learning and improving Front-End development skills 🚀
-          </p>
+          <p className="text-gray-700 mt-1">{profile.bio}</p>
+          <p className="text-gray-700 mt-1">{profile.description}</p>
 
           {/* Location */}
           <div className="flex items-center text-gray-600 text-sm mt-2 space-x-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 text-gray-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-            </svg>
-            <span>Swabi, Khyber Pakhtunkhwa, Pakistan</span>
+            <span>📍 {profile.location}</span>
           </div>
 
           {/* Education */}
           <div className="flex flex-col space-y-1 text-gray-700 text-sm mt-3">
-            <span>Computer Science · 6th Semester</span>
-            <span>University of Swabi</span>
+            <span>{profile.education}</span>
+            <span>{profile.university}</span>
           </div>
 
           {/* Contact info */}
@@ -54,8 +48,7 @@ const UserProfileCard = () => {
             </Link>
           </div>
         </div>
-
-        {/* RIGHT SIDE – SKILL HIGHLIGHTS (PC ONLY) */}
+  {/* RIGHT SIDE – SKILL HIGHLIGHTS (PC ONLY) */}
         <div className="hidden md:flex flex-col space-y-4 pt-18 pr-50">
 
           {/* Frontend Development */}
@@ -100,7 +93,6 @@ const UserProfileCard = () => {
               Continuous Learning
             </span>
           </div>
-
         </div>
       </div>
     </div>

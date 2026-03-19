@@ -132,3 +132,7 @@ app.use("/api/about", aboutRoutes);
 // Profile APIs
 const profileRoutes = require("./routes/profile");
 app.use("/api/profile", profileRoutes);
+
+// ProfileInfo routes (NEW)
+const ProfileInfoRoutes = require("./routes/ProfileInfo");
+app.use("/api/ProfileInfo", ProfileInfoRoutes);

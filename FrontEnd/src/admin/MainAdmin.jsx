@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate, Link, useLocation } from "react-router-dom";
-import { Image, FileText, Settings, LogOut } from "lucide-react";
+import { Image, FileText, User, LogOut } from "lucide-react";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 export default function Admin() {
@@ -18,8 +18,8 @@ export default function Admin() {
 
   const navItems = [
     { path: "banner", label: "Banner", icon: Image },
+    { path: "profile", label: "Profile Info", icon: User },
     { path: "about", label: "About", icon: FileText },
-    { path: "settings", label: "Settings", icon: Settings },
   ];
 
   return (

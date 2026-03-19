@@ -12,6 +12,8 @@ import Login from './Component/Login.jsx';
 import Admin from './admin/MainAdmin.jsx'; // new parent route
 import Banner from './admin/Banner.jsx';
 import About from './admin/about.jsx';
+import ProfileInfo from './admin/ProfileInfo.jsx';
+import Dashboard from "./admin/Banner.jsx";
 
 const router = createBrowserRouter([
   {
@@ -40,9 +42,10 @@ const router = createBrowserRouter([
     </ProtectedRoute>
   ),
      children: [
-    // { index: true, element: <Dashboard /> },
+    { index: true, element: <Dashboard /> },
     { path: 'banner', element: <Banner /> },
     { path: 'about', element: <About /> },
+    { path: 'profile', element: <ProfileInfo /> },
   ],
   },
 ]);
