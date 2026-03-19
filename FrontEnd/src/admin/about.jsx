@@ -145,7 +145,6 @@ export default function AdminAbout() {
 
           {/* Header */}
           <div className="bg-black px-6 py-5 sm:px-8 sm:py-6">
-            
             <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
               About Section
             </h2>

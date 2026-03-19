@@ -6,7 +6,9 @@ const UserProfileCard = () => {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/ProfileInfo")
+  const API = import.meta.env.VITE_API_URL;
+
+axios.get(`${API}/api/profile`) 
       .then(res => setProfile(res.data))
       .catch(err => console.log(err));
   }, []);

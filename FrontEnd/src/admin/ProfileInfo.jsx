@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const fields = [
-  { name: "name",        label: "Full Name",   placeholder: "e.g. Aisha Khan",               icon: "👤", full: false, textarea: false },
+  { name: "name",        label: "Full Name",   placeholder: "e.g. Jawad Ali",               icon: "👤", full: false, textarea: false },
   { name: "semester",    label: "Semester",    placeholder: "e.g. 6th Semester",              icon: "📅", full: false, textarea: false },
   { name: "bio",         label: "Bio",         placeholder: "A short tagline about you…",     icon: "✏️", full: true,  textarea: false },
   { name: "description", label: "Description", placeholder: "Tell the world about yourself…", icon: "📝", full: true,  textarea: true  },
@@ -106,7 +106,10 @@ const AdminProfileUpdate = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/ProfileInfo")
+    const API = import.meta.env.VITE_API_URL;
+
+axios.get(`${API}/api/profile`)   // Profile fetch
+
       .then(res => setProfile(prev => ({ ...prev, ...(res.data || {}) })))
       .catch(err => console.log(err));
   }, []);
@@ -118,7 +121,7 @@ const AdminProfileUpdate = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    axios.put("http://localhost:5000/api/ProfileInfo/update", profile)
+    axios.put(`${API}/api/profile/update`, profile)
       .then(() => { setStatus("success"); setLoading(false); })
       .catch(() => { setStatus("error");   setLoading(false); });
   };
