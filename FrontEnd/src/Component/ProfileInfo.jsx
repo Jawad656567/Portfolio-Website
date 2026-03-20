@@ -4,16 +4,28 @@ import axios from "axios";
 
 const UserProfileCard = () => {
   const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-  const API = import.meta.env.VITE_API_URL;
+    const fetchProfile = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/ProfileInfo`);
+        setProfile(res.data);
+      } catch (err) {
+        console.error("Error fetching profile:", err);
+        setError("Failed to load profile. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-axios.get(`${API}/api/profile`) 
-      .then(res => setProfile(res.data))
-      .catch(err => console.log(err));
+    fetchProfile();
   }, []);
 
-  if (!profile) return <p>Loading...</p>;
+  if (loading) return <p className="text-center mt-10">Loading profile...</p>;
+  if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
+  if (!profile) return null;
 
   return (
     <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden">
@@ -21,7 +33,7 @@ axios.get(`${API}/api/profile`)
       {/* Info Section */}
       <div className="flex flex-col md:flex-row items-start md:items-center px-6 pb-6 pt-4 space-y-4 md:space-y-0 md:space-x-6">
 
-        {/* Center: Name & Info */}
+        {/* Left / Center: Name & Info */}
         <div className="lg:pt-24 pt-12 flex-1">
           <h2 className="text-2xl font-bold text-gray-900">
             {profile.name} <span className="text-gray-500 text-lg">{profile.semester}</span>
@@ -50,7 +62,8 @@ axios.get(`${API}/api/profile`)
             </Link>
           </div>
         </div>
-  {/* RIGHT SIDE – SKILL HIGHLIGHTS (PC ONLY) */}
+
+        {/* Right Side – Skill Highlights (PC Only) */}
         <div className="hidden md:flex flex-col space-y-4 pt-18 pr-50">
 
           {/* Frontend Development */}
@@ -62,11 +75,10 @@ axios.get(`${API}/api/profile`)
                   d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
               </svg>
             </div>
-            <span className="font-medium text-black text-sm">
-              Front-End Development
-            </span>
+            <span className="font-medium text-black text-sm">Front-End Development</span>
           </div>
 
+          {/* React & Tailwind */}
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250" className="h-5 w-5 text-white">
@@ -76,11 +88,8 @@ axios.get(`${API}/api/profile`)
                 <ellipse cx="125" cy="125" rx="100" ry="50" fill="none" stroke="currentColor" strokeWidth="10" transform="rotate(120 125 125)" />
               </svg>
             </div>
-            <span className="font-medium text-black text-sm">
-              React & Tailwind CSS
-            </span>
+            <span className="font-medium text-black text-sm">React & Tailwind CSS</span>
           </div>
-
 
           {/* Continuous Learning */}
           <div className="flex items-center space-x-3">
@@ -91,9 +100,7 @@ axios.get(`${API}/api/profile`)
                   d="M12 8v4l3 3M12 2a10 10 0 100 20 10 10 0 000-20z" />
               </svg>
             </div>
-            <span className="font-medium text-black text-sm">
-              Continuous Learning
-            </span>
+            <span className="font-medium text-black text-sm">Continuous Learning</span>
           </div>
         </div>
       </div>
