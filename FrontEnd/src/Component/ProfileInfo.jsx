@@ -23,17 +23,46 @@ const UserProfileCard = () => {
     fetchProfile();
   }, []);
 
-  if (loading) return <p className="text-center mt-10">Loading profile...</p>;
+  // ✅ Skeleton Loading UI
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden animate-pulse">
+        <div className="flex flex-col md:flex-row items-start md:items-center px-6 pb-6 pt-4 space-y-4 md:space-y-0 md:space-x-6">
+
+          {/* Left Side */}
+          <div className="lg:pt-24 pt-12 flex-1 space-y-3">
+
+            <div className="h-6 bg-gray-300 rounded w-1/3"></div>
+
+            <div className="h-4 bg-gray-300 rounded w-2/3"></div>
+            <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+
+            <div className="h-3 bg-gray-300 rounded w-1/4 mt-2"></div>
+
+            <div className="space-y-2 mt-3">
+              <div className="h-3 bg-gray-300 rounded w-1/3"></div>
+              <div className="h-3 bg-gray-300 rounded w-1/4"></div>
+            </div>
+
+           <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+          </div>
+
+        
+
+          
+        </div>
+      </div>
+    );
+  }
+
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
   if (!profile) return null;
 
   return (
     <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden">
 
-      {/* Info Section */}
       <div className="flex flex-col md:flex-row items-start md:items-center px-6 pb-6 pt-4 space-y-4 md:space-y-0 md:space-x-6">
 
-        {/* Left / Center: Name & Info */}
         <div className="lg:pt-24 pt-12 flex-1">
           <h2 className="text-2xl font-bold text-gray-900">
             {profile.name} <span className="text-gray-500 text-lg">{profile.semester}</span>
@@ -41,18 +70,15 @@ const UserProfileCard = () => {
           <p className="text-gray-700 mt-1">{profile.bio}</p>
           <p className="text-gray-700 mt-1">{profile.description}</p>
 
-          {/* Location */}
           <div className="flex items-center text-gray-600 text-sm mt-2 space-x-2">
             <span>📍 {profile.location}</span>
           </div>
 
-          {/* Education */}
           <div className="flex flex-col space-y-1 text-gray-700 text-sm mt-3">
             <span>{profile.education}</span>
             <span>{profile.university}</span>
           </div>
 
-          {/* Contact info */}
           <div className="mt-3">
             <Link
               to="/contact"
@@ -63,7 +89,8 @@ const UserProfileCard = () => {
           </div>
         </div>
 
-        {/* Right Side – Skill Highlights (PC Only) */}
+        
+         {/* Right Side – Skill Highlights (PC Only) */}
         <div className="hidden md:flex flex-col space-y-4 pt-18 pr-50">
 
           {/* Frontend Development */}
@@ -102,8 +129,10 @@ const UserProfileCard = () => {
             </div>
             <span className="font-medium text-black text-sm">Continuous Learning</span>
           </div>
+
         </div>
       </div>
+     
     </div>
   );
 };
