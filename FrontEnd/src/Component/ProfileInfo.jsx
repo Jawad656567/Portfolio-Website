@@ -24,36 +24,56 @@ const UserProfileCard = () => {
   }, []);
 
   // ✅ Skeleton Loading UI
-  if (loading) {
-    return (
-      <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden animate-pulse">
-        <div className="flex flex-col md:flex-row items-start md:items-center px-6 pb-6 pt-4 space-y-4 md:space-y-0 md:space-x-6">
+// ✅ Skeleton Loading UI
+if (loading) {
+  return (
+    <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden animate-pulse">
 
-          {/* Left Side */}
-          <div className="lg:pt-24 pt-12 flex-1 space-y-3">
+      {/* Content Row */}
+      <div className="flex flex-col md:flex-row items-start md:items-center px-6 pb-6 pt-4 space-y-4 md:space-y-0 md:space-x-6 mt-16 md:mt-24">
 
-            <div className="h-6 bg-gray-300 rounded w-1/3"></div>
-
-            <div className="h-4 bg-gray-300 rounded w-2/3"></div>
-            <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-
-            <div className="h-3 bg-gray-300 rounded w-1/4 mt-2"></div>
-
-            <div className="space-y-2 mt-3">
-              <div className="h-3 bg-gray-300 rounded w-1/3"></div>
-              <div className="h-3 bg-gray-300 rounded w-1/4"></div>
-            </div>
-
-           <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+        {/* Left Side Skeleton */}
+        <div className="flex-1 space-y-3 pt-2">
+          {/* Name + semester */}
+          <div className="flex items-center space-x-3">
+            <div className="h-6 w-36 rounded bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]" />
+            <div className="h-5 w-24 rounded bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]" />
           </div>
 
-        
+          {/* Bio line 1 */}
+          <div className="h-4 w-2/3 rounded bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]" />
+          {/* Bio line 2 */}
+          <div className="h-4 w-1/2 rounded bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]" />
 
-          
+          {/* Location */}
+          <div className="h-3 w-1/4 rounded bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]" />
+
+          {/* Education */}
+          <div className="space-y-2 pt-1">
+            <div className="h-3 w-1/3 rounded bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]" />
+            <div className="h-3 w-1/4 rounded bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]" />
+          </div>
+
+          {/* Contact info link */}
+          <div className="h-3 w-20 rounded bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]" />
         </div>
+
+        {/* Right Side Skill Cards Skeleton — Desktop Only */}
+        <div className="hidden md:flex flex-col space-y-4 pr-16 pt-4">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="flex items-center space-x-3">
+              {/* Icon box */}
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]" />
+              {/* Label */}
+              <div className="h-4 w-36 rounded bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]" />
+            </div>
+          ))}
+        </div>
+
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
   if (!profile) return null;

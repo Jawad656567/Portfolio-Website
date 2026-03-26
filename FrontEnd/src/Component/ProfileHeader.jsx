@@ -29,7 +29,7 @@ const ProfileHeader = () => {
   }, []);
 
   return (
-    <div className="relative w-full">
+   <div className="relative w-full z-20">
 
       {/* Banner */}
       <div className="w-full aspect-[4/1] lg:h-64 overflow-hidden">
