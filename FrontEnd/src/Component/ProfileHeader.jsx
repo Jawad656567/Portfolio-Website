@@ -14,8 +14,8 @@ const ProfileHeader = () => {
         const data = res.data || {};
 
         setProfile({
-          bannerUrl: data.banner,
-          profilePicUrl: data.profilePic,
+          bannerUrl: data.banner || "bannerr.webp",
+profilePicUrl: data.profilePic || "profile.jpeg",
         });
 
         setLoading(false);

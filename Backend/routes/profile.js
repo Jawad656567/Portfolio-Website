@@ -7,6 +7,10 @@ const Profile = require("../models/profile");
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
+//cloudinary
+const uploadImage = require("../utils/cloudinary");
+const fs = require("fs");
+
 // =============================
 // UPLOAD BANNER + PROFILE PIC
 // =============================
@@ -19,23 +23,38 @@ router.post(
   async (req, res) => {
     try {
       // Convert uploaded files to Base64
-      const banner = req.files.banner
-        ? `data:${req.files.banner[0].mimetype};base64,${req.files.banner[0].buffer.toString("base64")}`
-        : null;
+      let bannerUrl = null;
+      let profilePicUrl = null;
 
-      const profilePic = req.files.profilePic
-        ? `data:${req.files.profilePic[0].mimetype};base64,${req.files.profilePic[0].buffer.toString("base64")}`
-        : null;
+      // Banner upload
+     if (req.files && req.files.banner) {
+        const file = req.files.banner[0];
+        const path = `uploads/${Date.now()}-${file.originalname}`;
+
+        fs.writeFileSync(path, file.buffer);
+        bannerUrl = await uploadImage(path);
+        fs.unlinkSync(path);
+      }
+
+      // Profile pic upload
+      if (req.files.profilePic) {
+        const file = req.files.profilePic[0];
+        const path = `uploads/${Date.now()}-${file.originalname}`;
+
+        fs.writeFileSync(path, file.buffer);
+        profilePicUrl = await uploadImage(path);
+        fs.unlinkSync(path);
+      }
 
       // Find existing profile
       let profile = await Profile.findOne();
 
       // Agar profile exist nahi karta, new create karo
       if (!profile) {
-        profile = new Profile({ banner, profilePic });
+       profile = new Profile({ banner: bannerUrl, profilePic: profilePicUrl });
       } else {
-        if (banner) profile.banner = banner;
-        if (profilePic) profile.profilePic = profilePic;
+     if (bannerUrl) profile.banner = bannerUrl;
+if (profilePicUrl) profile.profilePic = profilePicUrl;
       }
 
       await profile.save();

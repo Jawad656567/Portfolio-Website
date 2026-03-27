@@ -20,6 +20,7 @@ export default function Admin() {
     { path: "banner", label: "Banner", icon: Image },
     { path: "profile", label: "Profile Info", icon: User },
     { path: "about", label: "About", icon: FileText },
+    { path: "featured", label: "Featured", icon: FileText },
   ];
 
   return (
