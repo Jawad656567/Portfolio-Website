@@ -21,6 +21,7 @@ export default function Admin() {
     { path: "profile", label: "Profile Info", icon: User },
     { path: "about", label: "About", icon: FileText },
     { path: "featured", label: "Featured", icon: FileText },
+    { path: "projects", label: "Projects", icon: FileText },
   ];
 
   return (

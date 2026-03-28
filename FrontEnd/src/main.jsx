@@ -15,14 +15,15 @@ import About from './admin/about.jsx';
 import ProfileInfo from './admin/ProfileInfo.jsx';
 import Featured from './admin/Featured.jsx';
 import Dashboard from "./admin/Banner.jsx";
+import Projects from './admin/Projects.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/', 
-    element: <App />,   
+    element: <App />,
   },
   
-   {
+   {   
     path: '/activity',
     element: <AllActivity />,
   },
@@ -48,6 +49,7 @@ const router = createBrowserRouter([
     { path: 'about', element: <About /> },
     { path: 'profile', element: <ProfileInfo /> },
      { path: 'featured', element: <Featured /> },
+     { path: 'projects', element: <Projects /> },
   ],
   },
 ]);

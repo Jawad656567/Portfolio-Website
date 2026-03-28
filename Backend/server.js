@@ -139,4 +139,6 @@ app.use("/api/ProfileInfo", ProfileInfoRoutes);
 
 
 
-
+//featured
+const featuredRoutes = require("./routes/featured");
+app.use("/api/featured", featuredRoutes);

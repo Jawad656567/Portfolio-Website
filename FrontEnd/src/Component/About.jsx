@@ -5,8 +5,9 @@ export default function LinkedInAbout() {
 
   const [showFullText, setShowFullText] = useState(false);
   const [aboutData, setAboutData] = useState(null);
+  const [loading, setLoading] = useState(true); // ✅ loading state
 
-  // default text (agar database empty ho)
+  // default text
   const defaultParagraphs = [
     { icon: '🎓', text: "I am currently in my 6th semester of a Bachelor's degree in Computer Science, with a strong focus on Front-End Development. I have developed solid proficiency in ⚛️ React and have successfully completed multiple practical projects that strengthened my understanding of modern web development practices." },
     { icon: '💻', text: "Through these projects, I have gained hands-on experience in building responsive, user-friendly, and well-structured web applications using React and 🎨 Tailwind CSS." },
@@ -18,23 +19,25 @@ export default function LinkedInAbout() {
     const fetchAbout = async () => {
       try {
         const API = import.meta.env.VITE_API_URL;
-         const res = await axios.get(`${API}/api/about`);
-      console.log("Fetched About Data:", res.data);
+        const res = await axios.get(`${API}/api/about`);
 
-        // Agar MongoDB me data exist karta hai, use set karo
         if (res.data && res.data.paragraphs && res.data.paragraphs.length > 0) {
           setAboutData(res.data.paragraphs);
         }
+
       } catch (error) {
         console.log("Fetch Error:", error);
+      } finally {
+        setLoading(false); // ✅ loading stop
       }
     };
 
     fetchAbout();
   }, []);
 
-  // Agar aboutData null hai ya empty array, to defaultParagraphs use karo
-  const paragraphs = (aboutData && aboutData.length > 0) ? aboutData : defaultParagraphs;
+  const paragraphs = (aboutData && aboutData.length > 0)
+    ? aboutData
+    : defaultParagraphs;
 
   return (
     <>
@@ -50,32 +53,60 @@ export default function LinkedInAbout() {
 
             <div className="relative">
 
-              <div className="text-gray-800 text-[15px] leading-relaxed">
-
-                {showFullText ? (
-                  <div className="space-y-2">
-                    {paragraphs.map((para, index) => (
-                      <div key={index} className="flex items-start">
-                        <span className="mr-2">{para.icon}</span>
-                        <span>{para.text}</span>
-                      </div>
-                    ))}
+              {/* ✅ SHIMMER LOADING */}
+              {loading ? (
+                <div className="space-y-3 animate-pulse">
+                  
+                  {/* Line 1 */}
+                  <div className="flex items-start gap-2">
+                    <div className="w-5 h-5 bg-gray-300 rounded"></div>
+                    <div className="h-4 bg-gray-300 rounded w-full"></div>
                   </div>
-                ) : (
-                  <div className="flex items-start">
-                    <span className="mr-2">{paragraphs[0].icon}</span>
-                    <span>{paragraphs[0].text}</span>
+
+                  {/* Line 2 */}
+                  <div className="flex items-start gap-2">
+                    <div className="w-5 h-5 bg-gray-300 rounded"></div>
+                    <div className="h-4 bg-gray-300 rounded w-[90%]"></div>
                   </div>
-                )}
 
-              </div>
+                  {/* Line 3 */}
+                  <div className="flex items-start gap-2">
+                    <div className="w-5 h-5 bg-gray-300 rounded"></div>
+                    <div className="h-4 bg-gray-300 rounded w-[80%]"></div>
+                  </div>
 
-              <button
-                onClick={() => setShowFullText(!showFullText)}
-                className="mt-1 text-blue-700 font-semibold text-sm hover:bg-blue-50 hover:underline transition px-2 py-1 rounded"
-              >
-                {showFullText ? "...See Less" : "...See More"}
-              </button>
+                </div>
+              ) : (
+                <div className="text-gray-800 text-[15px] leading-relaxed">
+
+                  {showFullText ? (
+                    <div className="space-y-2">
+                      {paragraphs.map((para, index) => (
+                        <div key={index} className="flex items-start">
+                          <span className="mr-2">{para.icon}</span>
+                          <span>{para.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex items-start">
+                      <span className="mr-2">{paragraphs[0].icon}</span>
+                      <span>{paragraphs[0].text}</span>
+                    </div>
+                  )}
+
+                </div>
+              )}
+
+              {/* Button (hide while loading) */}
+              {!loading && (
+                <button
+                  onClick={() => setShowFullText(!showFullText)}
+                  className="mt-1 text-blue-700 font-semibold text-sm hover:bg-blue-50 hover:underline transition px-2 py-1 rounded"
+                >
+                  {showFullText ? "...See Less" : "...See More"}
+                </button>
+              )}
 
             </div>
 
