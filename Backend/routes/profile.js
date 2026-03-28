@@ -22,6 +22,7 @@ router.post(
   ]),
   async (req, res) => {
     try {
+      console.log("FILES:", req.files);   // 🔥 ADD THIS
       // Convert uploaded files to Base64
       let bannerUrl = null;
       let profilePicUrl = null;
