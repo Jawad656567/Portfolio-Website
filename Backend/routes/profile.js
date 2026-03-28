@@ -7,9 +7,8 @@ const Profile = require("../models/profile");
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-//cloudinary
+// Cloudinary upload (buffer version)
 const uploadImage = require("../utils/cloudinary");
-const fs = require("fs");
 
 // =============================
 // UPLOAD BANNER + PROFILE PIC
@@ -22,44 +21,38 @@ router.post(
   ]),
   async (req, res) => {
     try {
-      console.log("FILES:", req.files);   // 🔥 ADD THIS
-      // Convert uploaded files to Base64
+      console.log("FILES:", req.files); // 🔥 Debug
+
       let bannerUrl = null;
       let profilePicUrl = null;
 
       // Banner upload
-     if (req.files && req.files.banner) {
+      if (req.files?.banner?.[0]) {
         const file = req.files.banner[0];
-        const path = `uploads/${Date.now()}-${file.originalname}`;
-
-       
+        bannerUrl = await uploadImage(file.buffer); // ✅ buffer upload
       }
 
-      // Profile pic upload
-      if (req.files.profilePic) {
+      // Profile Pic upload
+      if (req.files?.profilePic?.[0]) {
         const file = req.files.profilePic[0];
-        const path = `uploads/${Date.now()}-${file.originalname}`;
-
-        fs.writeFileSync(path, file.buffer);
-        profilePicUrl = await uploadImage(path);
-        fs.unlinkSync(path);
+        profilePicUrl = await uploadImage(file.buffer); // ✅ buffer upload
       }
 
       // Find existing profile
       let profile = await Profile.findOne();
 
-      // Agar profile exist nahi karta, new create karo
       if (!profile) {
-       profile = new Profile({ banner: bannerUrl, profilePic: profilePicUrl });
+        profile = new Profile({ banner: bannerUrl, profilePic: profilePicUrl });
       } else {
-     if (bannerUrl) profile.banner = bannerUrl;
-if (profilePicUrl) profile.profilePic = profilePicUrl;
+        if (bannerUrl) profile.banner = bannerUrl;
+        if (profilePicUrl) profile.profilePic = profilePicUrl;
       }
 
       await profile.save();
 
       res.json(profile);
     } catch (error) {
+      console.error("Upload Route Error:", error);
       res.status(500).json({ error: error.message });
     }
   }
@@ -72,7 +65,6 @@ router.get("/", async (req, res) => {
   try {
     let profile = await Profile.findOne();
 
-    // Agar profile null hai, ek default create karo
     if (!profile) {
       profile = new Profile({
         banner: null,
@@ -83,6 +75,7 @@ router.get("/", async (req, res) => {
 
     res.json(profile);
   } catch (error) {
+    console.error("Get Profile Error:", error);
     res.status(500).json({ error: error.message });
   }
 });
