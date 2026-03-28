@@ -32,9 +32,7 @@ router.post(
         const file = req.files.banner[0];
         const path = `uploads/${Date.now()}-${file.originalname}`;
 
-        fs.writeFileSync(path, file.buffer);
-        bannerUrl = await uploadImage(path);
-        fs.unlinkSync(path);
+       
       }
 
       // Profile pic upload
