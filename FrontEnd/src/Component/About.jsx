@@ -73,6 +73,8 @@ export default function LinkedInAbout() {
                   <div className="flex items-start gap-2">
                     <div className="w-5 h-5 bg-gray-300 rounded"></div>
                     <div className="h-4 bg-gray-300 rounded w-[80%]"></div>
+                    <div className="w-5 h-5 bg-gray-300 rounded"></div>
+                    <div className="h-4 bg-gray-300 rounded w-[80%]"></div>
                   </div>
 
                 </div>
