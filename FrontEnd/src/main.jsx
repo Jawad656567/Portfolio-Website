@@ -16,14 +16,17 @@ import ProfileInfo from './admin/ProfileInfo.jsx';
 import Featured from './admin/Featured.jsx';
 import Dashboard from "./admin/Banner.jsx";
 import Projects from './admin/Projects.jsx';
+import Experience from './admin/Experience.jsx';
+import Skill from './admin/Skill.jsx';
+import Contacts from './admin/Contacts.jsx';
 
 const router = createBrowserRouter([
   {
-    path: '/', 
+    path: '/',
     element: <App />,
   },
-  
-   {   
+
+  {
     path: '/activity',
     element: <AllActivity />,
   },
@@ -35,22 +38,25 @@ const router = createBrowserRouter([
     path: '/login',
     element: <Login />,
   },
-// Admin as new parent route
+  // Admin as new parent route
   {
     path: '/admin',
-    element:  (
-    <ProtectedRoute>
-      <Admin />
-    </ProtectedRoute>
-  ),
-     children: [
-    { index: true, element: <Dashboard /> },
-    { path: 'banner', element: <Banner /> },
-    { path: 'about', element: <About /> },
-    { path: 'profile', element: <ProfileInfo /> },
-     { path: 'featured', element: <Featured /> },
-     { path: 'projects', element: <Projects /> },
-  ],
+    element: (
+      <ProtectedRoute>
+        <Admin />
+      </ProtectedRoute>
+    ),
+    children: [
+      { index: true, element: <Dashboard /> },
+      { path: 'banner', element: <Banner /> },
+      { path: 'about', element: <About /> },
+      { path: 'profile', element: <ProfileInfo /> },
+      { path: 'featured', element: <Featured /> },
+      { path: 'projects', element: <Projects /> },
+      { path: 'experience', element: <Experience /> },
+      { path: 'skill', element: <Skill /> },
+      { path: 'contact', element: <Contacts /> },
+    ],
   },
 ]);
 

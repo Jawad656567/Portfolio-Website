@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate, Link, useLocation } from "react-router-dom";
-import { Image, FileText, User, LogOut } from "lucide-react";
+import {Image,User, FileText,Star,FolderKanban,Briefcase,Code, Mail,LogOut} from "lucide-react";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 export default function Admin() {
@@ -20,8 +20,11 @@ export default function Admin() {
     { path: "banner", label: "Banner", icon: Image },
     { path: "profile", label: "Profile Info", icon: User },
     { path: "about", label: "About", icon: FileText },
-    { path: "featured", label: "Featured", icon: FileText },
-    { path: "projects", label: "Projects", icon: FileText },
+    { path: "featured", label: "Featured", icon: Star },
+    { path: "projects", label: "Projects", icon: FolderKanban   },
+    { path: "experience", label: "Experience", icon: Briefcase  },
+    { path: "skill", label: "Skill", icon: Code  },
+    { path: "contact", label: "Contact", icon: Mail },
   ];
 
   return (

@@ -142,3 +142,8 @@ app.use("/api/ProfileInfo", ProfileInfoRoutes);
 //featured
 const featuredRoutes = require("./routes/featured");
 app.use("/api/featured", featuredRoutes);
+
+
+//experince
+const experienceRoute = require("./routes/experience");
+app.use("/api/experience", experienceRoute);
