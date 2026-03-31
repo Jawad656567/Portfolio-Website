@@ -53,7 +53,7 @@ function Card({ profilePic, name, role, description, image }) {
             <div className="absolute bottom-0 right-2 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
           </div>
           <div>
-            <h3 className="font-bold text-lg text-gray-900">{name}</h3>
+            <h3 className="font-bold text-lg text-gray-900">Jawad Ali</h3>
             <p className="text-gray-500 text-xs">{role}</p>
           </div>
         </div>

@@ -23,10 +23,9 @@ const ContactPage = () => {
   const socialLinks = [
     {
       name: "LinkedIn",
-      handle: "/in/johndoe",
-      url: "https://linkedin.com/in/johndoe",
-      color: "text-blue-700",
-      bg: "bg-blue-50 hover:bg-blue-100",
+      url: "https://www.linkedin.com/in/jawad-ali-201640379",
+      color: "text-gray-800",
+      bg: "bg-gray-100 hover:bg-gray-200",
       border: "border-blue-100",
       icon: (
         <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
@@ -36,8 +35,7 @@ const ContactPage = () => {
     },
     {
       name: "GitHub",
-      handle: "@johndoe",
-      url: "https://github.com/johndoe",
+      url: "https://github.com/Jawad656567",
       color: "text-gray-800",
       bg: "bg-gray-100 hover:bg-gray-200",
       border: "border-gray-200",
@@ -49,10 +47,9 @@ const ContactPage = () => {
     },
     {
       name: "Twitter / X",
-      handle: "@johndoe_dev",
-      url: "https://twitter.com/johndoe_dev",
-      color: "text-black",
-      bg: "bg-gray-50 hover:bg-gray-100",
+      url: "https://x.com/JawadAl24229081",
+     color: "text-gray-800",
+      bg: "bg-gray-100 hover:bg-gray-200",
       border: "border-gray-200",
       icon: (
         <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
@@ -62,10 +59,9 @@ const ContactPage = () => {
     },
     {
       name: "Instagram",
-      handle: "@johndoe",
-      url: "https://instagram.com/johndoe",
-      color: "text-pink-600",
-      bg: "bg-pink-50 hover:bg-pink-100",
+      url: "https://www.instagram.com/jawad37221?igsh=Yzlld214bmJncnRi",
+      color: "text-gray-800",
+      bg: "bg-gray-100 hover:bg-gray-200",
       border: "border-pink-100",
       icon: (
         <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
@@ -101,8 +97,8 @@ const ContactPage = () => {
                       </svg>
                     ),
                     label: "Email",
-                    value: "john@example.com",
-                    href: "mailto:john@example.com",
+                    value: "ja289327@gmail.com",
+                    href: "mailto:ja289327@gmail.com",
                   },
                   {
                     icon: (
@@ -111,8 +107,8 @@ const ContactPage = () => {
                       </svg>
                     ),
                     label: "Phone",
-                    value: "+92 300 1234567",
-                    href: "tel:+923001234567",
+                    value: "+92 314 6767659",
+                    href: "tel:+923146767659",
                   },
                   {
                     icon: (
@@ -122,7 +118,7 @@ const ContactPage = () => {
                       </svg>
                     ),
                     label: "Location",
-                    value: "Lahore, Punjab, Pakistan",
+                    value: "Panjpir, Swabi, Pakistan",
                     href: null,
                   },
                   {
@@ -132,8 +128,8 @@ const ContactPage = () => {
                       </svg>
                     ),
                     label: "Website",
-                    value: "johndoe.dev",
-                    href: "https://johndoe.dev",
+                    value: "JawadDev.site",
+                    href: "https://jawaddev.site",
                   },
                 ].map(({ icon, label, value, href }) => (
                   <div key={label} className="flex items-start gap-3">
@@ -206,7 +202,7 @@ const ContactPage = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    placeholder="John Smith"
+                    placeholder="Jawad Ali"
                     className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition"
                   />
                 </div>

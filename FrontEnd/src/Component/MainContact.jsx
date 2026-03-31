@@ -4,14 +4,14 @@ import {
   FaGithub,
   FaLinkedin,
   FaInstagram,
-  FaFacebook,
+  FaTwitter,
 } from "react-icons/fa";
 
 const socialLinks = [
-  { icon: <FaGithub />, url: "https://github.com/yourusername" },
-  { icon: <FaLinkedin />, url: "https://linkedin.com/in/yourusername" },
-  { icon: <FaInstagram />, url: "https://instagram.com/yourusername" },
-  { icon: <FaFacebook />, url: "https://facebook.com/yourusername" },
+  { icon: <FaGithub />, url: "https://github.com/Jawad656567" },
+  { icon: <FaLinkedin />, url: "https://www.linkedin.com/in/jawad-ali-201640379" },
+  { icon: <FaInstagram />, url: "https://www.instagram.com/jawad37221?igsh=Yzlld214bmJncnRi" },
+  { icon: <FaTwitter />, url: "https://x.com/JawadAl24229081" },
 ];
 
 const FindMeOnline = () => {
