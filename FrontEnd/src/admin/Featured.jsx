@@ -34,12 +34,6 @@ const SuccessPopup = ({ onClose, message }) => (
         </button>
       </div>
     </div>
-    <style>{`
-      @keyframes popIn {
-        from { opacity: 0; transform: scale(0.85) translateY(20px); }
-        to   { opacity: 1; transform: scale(1)    translateY(0);    }
-      }
-    `}</style>
   </div>
 );
 
@@ -66,12 +60,6 @@ const ErrorPopup = ({ onClose }) => (
         </button>
       </div>
     </div>
-    <style>{`
-      @keyframes popIn {
-        from { opacity: 0; transform: scale(0.85) translateY(20px); }
-        to   { opacity: 1; transform: scale(1)    translateY(0);    }
-      }
-    `}</style>
   </div>
 );
 
@@ -104,12 +92,6 @@ const DeleteConfirmPopup = ({ onConfirm, onCancel }) => (
         </button>
       </div>
     </div>
-    <style>{`
-      @keyframes popIn {
-        from { opacity: 0; transform: scale(0.85) translateY(20px); }
-        to   { opacity: 1; transform: scale(1)    translateY(0);    }
-      }
-    `}</style>
   </div>
 );
 
@@ -399,7 +381,7 @@ export default function FeaturedAdmin() {
                   <p className="text-xs sm:text-sm text-gray-400 font-light">Add your first featured item above</p>
                 </div>
               ) : (
-                <div className="relative">
+                <div className="relative -mx-4 sm:mx-0">
                   {/* Scroll Buttons - Hidden on Mobile */}
                   {featuredData.length > 1 && (
                     <>
@@ -422,12 +404,7 @@ export default function FeaturedAdmin() {
                   {/* Scrollable Gallery */}
                   <div
                     ref={scrollRef}
-                    className="flex gap-3 sm:gap-4 overflow-x-auto scroll-smooth pb-2 scrollbar-hide"
-                    style={{
-                      scrollbarWidth: 'none',
-                      msOverflowStyle: 'none',
-                      WebkitOverflowScrolling: 'touch'
-                    }}
+                    className="flex gap-4 overflow-x-auto scroll-smooth px-4 sm:px-0 pb-2 hide-scrollbar"
                   >
                     {featuredData.map((item) => (
                       <div
@@ -476,10 +453,10 @@ export default function FeaturedAdmin() {
       </div>
 
       <style>{`
-        .scrollbar-hide::-webkit-scrollbar {
+        .hide-scrollbar::-webkit-scrollbar {
           display: none;
         }
-        .scrollbar-hide {
+        .hide-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
