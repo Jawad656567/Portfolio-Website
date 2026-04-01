@@ -13,7 +13,7 @@ export default function AdminExperience() {
 
   // Load existing data
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/experience`)
+    axios.get(`${import.meta.env.VITE_API_URL}/api/experience`)
       .then(res => {
         if (res.data) setForm(res.data);
       })
@@ -52,7 +52,7 @@ export default function AdminExperience() {
     setLoading(true);
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/experience`, form);
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/experience`, form);
       alert("Saved successfully ✅");
     } catch (err) {
       alert("Error saving ❌");

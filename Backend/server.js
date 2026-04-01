@@ -147,3 +147,11 @@ app.use("/api/featured", featuredRoutes);
 //experince
 const experienceRoute = require("./routes/experience");
 app.use("/api/experience", experienceRoute);
+
+// skill
+const skillsRoute = require("./routes/skill");
+app.use("/api/skills", skillsRoute);
+
+
+const educationRoutes = require ("./routes/education.js");
+app.use("/api/education", educationRoutes);

@@ -50,7 +50,7 @@ export default function FeaturedSection() {
 
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white pt-12 px-6 pb-12 relative w-full overflow-hidden">
-      
+
       {/* Header with subtle styling */}
       <div className="mb-8">
         <h2 className="text-[28px] font-bold text-gray-800 mb-2">
@@ -92,15 +92,15 @@ export default function FeaturedSection() {
           >
             {/* Image Container with Overlay */}
             <div className="relative w-full h-52 overflow-hidden bg-gray-200">
-        <img
-  src={item.image_url}
-  alt={item.title}
-  className="w-full h-full object-contain object-bottom transition-transform duration-700 group-hover:scale-105"
-/>
-              
+              <img
+                src={item.image_url}
+                alt={item.title}
+                className="w-full h-full object-contain object-bottom transition-transform duration-700 group-hover:scale-105"
+              />
+
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
-              
+
               {/* Link Badge - Top Right */}
               <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-[-10px] group-hover:translate-y-0">
                 <ExternalLink size={14} className="text-blue-600" />

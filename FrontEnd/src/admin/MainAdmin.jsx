@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate, Link, useLocation } from "react-router-dom";
-import {Image,User, FileText,Star,FolderKanban,Briefcase,Code, Mail,LogOut} from "lucide-react";
+import {Image,User, FileText,Star,FolderKanban,GraduationCap,Briefcase,Code, Mail,LogOut} from "lucide-react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { SiEdgeimpulse, SiEducative } from "react-icons/si";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function Admin() {
     { path: "about", label: "About", icon: FileText },
     { path: "featured", label: "Featured", icon: Star },
     { path: "projects", label: "Projects", icon: FolderKanban   },
+    { path: "education", label: "Education", icon: GraduationCap  },
     { path: "experience", label: "Experience", icon: Briefcase  },
     { path: "skill", label: "Skill", icon: Code  },
     { path: "contact", label: "Contact", icon: Mail },

@@ -19,6 +19,7 @@ import Projects from './admin/Projects.jsx';
 import Experience from './admin/Experience.jsx';
 import Skill from './admin/Skill.jsx';
 import Contacts from './admin/Contacts.jsx';
+import Education from './admin/Education.jsx';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
       { path: 'profile', element: <ProfileInfo /> },
       { path: 'featured', element: <Featured /> },
       { path: 'projects', element: <Projects /> },
+       { path: 'education', element: <Education /> },
       { path: 'experience', element: <Experience /> },
       { path: 'skill', element: <Skill /> },
       { path: 'contact', element: <Contacts /> },

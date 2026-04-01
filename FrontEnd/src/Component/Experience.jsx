@@ -19,7 +19,7 @@ export default function WorkExperience() {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/experience`)
+      .get(`${import.meta.env.VITE_API_URL}/api/experience`)
       .then((res) => {
         if (res.data) {
           setData(res.data);
