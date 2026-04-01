@@ -1,64 +1,56 @@
 const express = require("express");
 const router = express.Router();
-const Skill = require("../models/skill");
+const multer = require("multer");
+const Featured = require("../models/Featured");
+const uploadImage = require("../utils/cloudinary");
 
-// GET all skills grouped by category
+// Multer setup
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+// ✅ GET all featured items
 router.get("/", async (req, res) => {
   try {
-    const skills = await Skill.find();
-    const grouped = { Frontend: [], Backend: [], Tools: [] };
-
-    skills.forEach(skill => {
-      grouped[skill.category].push({
-        _id: skill._id,
-        name: skill.name,
-        learning: skill.learning
-      });
-    });
-
-    res.json(grouped);
+    const items = await Featured.find().sort({ created_at: -1 });
+    res.json(items);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
-// POST new skill
-router.post("/", async (req, res) => {
+// ✅ UPDATE featured item
+router.put("/:id", upload.single("image"), async (req, res) => {
   try {
-    const { name, category, learning } = req.body;
-    const newSkill = new Skill({ name, category, learning });
-    await newSkill.save();
-    res.status(201).json({ message: "Skill added" });
+    const item = await Featured.findById(req.params.id);
+    if (!item) return res.status(404).json({ error: "Item not found" });
+
+    if (req.body.title) item.title = req.body.title;
+    if (req.body.description) item.description = req.body.description;
+    if (req.body.link) item.link = req.body.link;
+
+    // Image update
+    if (req.file) {
+      const imageUrl = await uploadImage(req.file.buffer);
+      item.image_url = imageUrl;
+    }
+
+    item.updated_at = Date.now();
+
+    await item.save();
+    res.json(item);
+
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
-// PATCH update skill
-router.patch("/:id", async (req, res) => {
-  try {
-    const skill = await Skill.findById(req.params.id);
-    if (!skill) return res.status(404).json({ message: "Skill not found" });
-
-    Object.assign(skill, req.body);
-    await skill.save();
-    res.json({ message: "Skill updated" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// DELETE skill
+// ✅ DELETE featured item
 router.delete("/:id", async (req, res) => {
   try {
-    await Skill.findByIdAndDelete(req.params.id);
-    res.json({ message: "Skill deleted" });
+    await Featured.findByIdAndDelete(req.params.id);
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
