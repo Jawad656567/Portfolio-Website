@@ -18,6 +18,8 @@ function Card({ profilePic, name, role, description, image, liveLink }) {
     setIsLiked(!isLiked);
     setLikes(isLiked ? likes - 1 : likes + 1);
   };
+  // console.log(liveLink);
+  
 
   const handleStar = () => {
     setIsStarred(!isStarred);

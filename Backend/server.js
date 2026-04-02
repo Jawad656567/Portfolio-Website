@@ -159,3 +159,7 @@ app.use("/api/education", educationRoute);
 //contact
 const contactRoute = require("./routes/contact");
 app.use("/api/contact", contactRoute);
+
+//project
+const projectroute = require("./routes/projects");
+app.use("/api/project", projectroute);
