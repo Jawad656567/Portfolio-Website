@@ -13,12 +13,35 @@ const ContactPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-    setFormData({ name: "", email: "", subject: "", message: "" });
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    // POST request backend ko
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 3000);
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      console.log(data.message); // Email sent successfully
+    } else {
+      console.error(data.message);
+      alert("Email failed. Try again later.");
+    }
+  } catch (err) {
+    console.error("Error sending email:", err);
+    alert("Something went wrong. Check console for details.");
+  }
+};
 
   const socialLinks = [
     {

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Heart, Flame, Star, Bookmark, MoreHorizontal } from "lucide-react";
 
-function Card({ profilePic, name, role, description, image }) {
+
+function Card({ profilePic, name, role, description, image, liveLink }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
@@ -37,24 +38,28 @@ function Card({ profilePic, name, role, description, image }) {
 
   return (
     <div className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 max-w-lg w-full border border-gray-100 transform hover:-translate-y-1">
-      
+
       {/* Header: Profile pic + Name + Role + Menu */}
       <div className="flex items-center justify-between p-5 bg-gradient-to-r from-white to-gray-50">
         <div className="flex items-center">
           <div className="relative">
+
             <img
-              className="w-12 h-12 rounded-full mr-3 border-2 border-purple-400 object-cover object-top ring-2 ring-purple-100"
-              src="image.png"
+              className="w-12 h-12 rounded-full mr-3 border-2 border-purple-400 object-cover object-top ring-2 ring-purple-100 hover:scale-110 transition-transform duration-300 cursor-pointer"
+              src={profilePic || "image.png"}
               alt={name}
               onError={(e) => {
                 e.target.src = "https://api.dicebear.com/7.x/avataaars/svg?seed=default";
               }}
             />
+
+
+
             <div className="absolute bottom-0 right-2 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
           </div>
           <div>
             <h3 className="font-bold text-lg text-gray-900">Jawad Ali</h3>
-            <p className="text-gray-500 text-xs">{role}</p>
+            <p className="text-gray-500 text-xs">CS Student 🎓 | Front-End Developer 💻"</p>
           </div>
         </div>
         <button className="text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-full transition-all">
@@ -69,16 +74,32 @@ function Card({ profilePic, name, role, description, image }) {
 
       {/* Post Image - ab bottom se crop hogi, top dikhega */}
       {image && (
-        <div className="relative overflow-hidden group h-64">
-          <img
-            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-            src={image}
-            alt="post image"
-            onError={(e) => {
-              e.target.src = "https://via.placeholder.com/600x400/e2e8f0/64748b?text=Image";
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="relative group inline-block h-64 w-full">
+          <a
+            href={liveLink || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full h-full relative"
+          >
+            <img
+              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              src={image}
+              alt="post image"
+              onError={(e) => {
+                e.target.src = "https://via.placeholder.com/600x400/e2e8f0/64748b?text=Image";
+              }}
+            />
+
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+
+            {/* Live Badge */}
+            {liveLink && (
+              <div className="absolute top-2 right-2 bg-black/80 text-white px-2 py-1 rounded-full text-xs font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
+                Live →
+              </div>
+            )}
+          </a>
         </div>
       )}
 
@@ -87,42 +108,39 @@ function Card({ profilePic, name, role, description, image }) {
         <div className="flex items-center space-x-1">
           {/* Heart - Like */}
           <button
-            className={`p-2 rounded-full transition-all duration-300 ${
-              isLiked 
-                ? "text-red-500 scale-110" 
+            className={`p-2 rounded-full transition-all duration-300 ${isLiked
+                ? "text-red-500 scale-110"
                 : "text-gray-700 hover:bg-red-50 hover:text-red-500"
-            }`}
+              }`}
             onClick={handleLike}
           >
-            <Heart 
+            <Heart
               className={`w-6 h-6 transition-all duration-300 ${isLiked ? "fill-red-500 animate-pulse" : ""}`}
             />
           </button>
 
           {/* Fire - This is Fire/Lit */}
           <button
-            className={`p-2 rounded-full transition-all duration-300 ${
-              isFire 
-                ? "text-orange-500 scale-110" 
+            className={`p-2 rounded-full transition-all duration-300 ${isFire
+                ? "text-orange-500 scale-110"
                 : "text-gray-700 hover:bg-orange-50 hover:text-orange-500"
-            }`}
+              }`}
             onClick={handleFire}
           >
-            <Flame 
+            <Flame
               className={`w-6 h-6 transition-all duration-300 ${isFire ? "fill-orange-500 animate-pulse" : ""}`}
             />
           </button>
 
           {/* Star - Favorite */}
           <button
-            className={`p-2 rounded-full transition-all duration-300 ${
-              isStarred 
-                ? "text-yellow-500 scale-110" 
+            className={`p-2 rounded-full transition-all duration-300 ${isStarred
+                ? "text-yellow-500 scale-110"
                 : "text-gray-700 hover:bg-yellow-50 hover:text-yellow-500"
-            }`}
+              }`}
             onClick={handleStar}
           >
-            <Star 
+            <Star
               className={`w-6 h-6 transition-all duration-300 ${isStarred ? "fill-yellow-500" : ""}`}
             />
           </button>
@@ -130,11 +148,10 @@ function Card({ profilePic, name, role, description, image }) {
 
         {/* Bookmark - Save */}
         <button
-          className={`p-2 rounded-full transition-all duration-300 ${
-            isSaved 
-              ? "text-blue-500" 
+          className={`p-2 rounded-full transition-all duration-300 ${isSaved
+              ? "text-blue-500"
               : "text-gray-700 hover:bg-blue-50 hover:text-blue-500"
-          }`}
+            }`}
           onClick={() => setIsSaved(!isSaved)}
         >
           <Bookmark className={`w-6 h-6 ${isSaved ? "fill-blue-500" : ""}`} />

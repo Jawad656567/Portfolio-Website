@@ -13,14 +13,7 @@ export default function FeaturedSection() {
 
   // ✅ Default images (fallback)
   const defaultData = [
-    { _id: 1, title: "Web Development Masterclass", image_url: "https://picsum.photos/300/200?random=1" },
-    { _id: 2, title: "Digital Marketing Strategy", image_url: "https://picsum.photos/300/200?random=2" },
-    { _id: 3, title: "UI/UX Design Principles", image_url: "https://picsum.photos/300/200?random=3" },
-    { _id: 4, title: "Data Science Fundamentals", image_url: "https://picsum.photos/300/200?random=4" },
-    { _id: 5, title: "Business Analytics", image_url: "https://picsum.photos/300/200?random=5" },
-    { _id: 6, title: "Cloud Architecture", image_url: "https://picsum.photos/300/200?random=6" },
-    { _id: 7, title: "Mobile App Development", image_url: "https://picsum.photos/300/200?random=7" },
-    { _id: 8, title: "Cybersecurity Essentials", image_url: "https://picsum.photos/300/200?random=8" }
+   
   ];
 
   // ✅ Default state

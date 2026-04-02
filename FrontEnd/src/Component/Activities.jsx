@@ -24,6 +24,7 @@ export default function Activities() {
             role={activity.role}
             description={activity.description}
             image={activity.image}
+            liveLink={activity.liveLink}
           />
         ))}
       </div>

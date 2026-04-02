@@ -1,41 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { MapPin, Calendar, BookOpen, ChevronRight } from "lucide-react";
+import axios from "axios";
 
-const EDU_DATA = [
-  {
-    id: 1,
-    degree: "Bachelor in Computer Science",
-    short: "BSCS",
-    institute: "Government Lahore Degree College",
-    period: "Mar 2023 – Present",
-    city: "Swabi",
-    country: "Pakistan",
-    field: "Computer Science",
-    status: "ongoing",
-  },
-  {
-    id: 2,
-    degree: "FSc Pre-Engineering",
-    short: "FSc",
-    institute: "Government Higher Secondary College",
-    period: "2021 – 2023",
-    city: "Swabi",
-    country: "Pakistan",
-    field: "Pre-Engineering",
-    status: "completed",
-  },
-  {
-    id: 3,
-    degree: "Matric · Computer Science",
-    short: "Matric",
-    institute: "Government Higher Secondary College",
-    period: "2019 – 2020",
-    city: "Swabi",
-    country: "Pakistan",
-    field: "Computer Science",
-    status: "completed",
-  },
-];
+// ✅ API setup (env se)
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_URL
+});
 
 function CardContent({ data, index, total, counter }) {
   return (
@@ -196,8 +166,23 @@ function EduCard({ data, index, total, isTop, onSwipedAway }) {
 }
 
 export default function Education() {
-  const [cards, setCards] = useState([...EDU_DATA].reverse());
+  const [cards, setCards] = useState([]);
+
   const total = cards.length;
+
+  // ✅ FETCH DATA FROM BACKEND
+  useEffect(() => {
+    const fetchEducation = async () => {
+      try {
+        const res = await API.get("/api/education");
+        setCards(res.data.reverse());
+      } catch (err) {
+        console.error("Error fetching education:", err);
+      }
+    };
+
+    fetchEducation();
+  }, []);
 
   const handleSwipedAway = () => {
     setCards((prev) => {
@@ -226,7 +211,7 @@ export default function Education() {
       >
         {cards.map((card, i) => (
           <EduCard
-            key={card.id}
+            key={card._id || card.id}
             data={card}
             index={i}
             total={total}
@@ -238,18 +223,21 @@ export default function Education() {
 
       {/* Desktop Grid */}
       <div className="hidden lg:grid lg:grid-cols-3 gap-5">
-        {EDU_DATA.map((card, i) => (
-          <div
-            key={card.id}
-            className="bg-white border border-gray-200 rounded-xl p-5"
-          >
-            <CardContent
-              data={card}
-              index={i}
-              total={EDU_DATA.length}
-            />
-          </div>
-        ))}
+        {cards
+          .slice()
+          .reverse()
+          .map((card, i) => (
+            <div
+              key={card._id || card.id}
+              className="bg-white border border-gray-200 rounded-xl p-5"
+            >
+              <CardContent
+                data={card}
+                index={i}
+                total={cards.length}
+              />
+            </div>
+          ))}
       </div>
     </div>
   );

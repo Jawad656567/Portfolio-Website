@@ -152,3 +152,10 @@ app.use("/api/experience", experienceRoute);
 const skillsRoute = require("./routes/skill");
 app.use("/api/skills", skillsRoute);
 
+//education
+const educationRoute = require("./routes/education");
+app.use("/api/education", educationRoute);
+
+//contact
+const contactRoute = require("./routes/contact");
+app.use("/api/contact", contactRoute);
