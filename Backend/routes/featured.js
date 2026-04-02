@@ -8,7 +8,7 @@ const uploadImage = require("../utils/cloudinary");
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// ✅ GET all featured items
+/* ── GET all featured items ── */
 router.get("/", async (req, res) => {
   try {
     const items = await Featured.find().sort({ created_at: -1 });
@@ -18,7 +18,33 @@ router.get("/", async (req, res) => {
   }
 });
 
-// ✅ UPDATE featured item
+/* ── CREATE new featured item ── */
+router.post("/", upload.single("image"), async (req, res) => {
+  try {
+    const { title, description, link } = req.body;
+    let imageUrl = "";
+
+    if (req.file) {
+      imageUrl = await uploadImage(req.file.buffer);
+    }
+
+    const newItem = new Featured({
+      title,
+      description,
+      link,
+      image_url: imageUrl,
+      created_at: Date.now(),
+      updated_at: Date.now()
+    });
+
+    await newItem.save();
+    res.status(201).json(newItem);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/* ── UPDATE featured item ── */
 router.put("/:id", upload.single("image"), async (req, res) => {
   try {
     const item = await Featured.findById(req.params.id);
@@ -28,23 +54,21 @@ router.put("/:id", upload.single("image"), async (req, res) => {
     if (req.body.description) item.description = req.body.description;
     if (req.body.link) item.link = req.body.link;
 
-    // Image update
     if (req.file) {
       const imageUrl = await uploadImage(req.file.buffer);
       item.image_url = imageUrl;
     }
 
     item.updated_at = Date.now();
-
     await item.save();
-    res.json(item);
 
+    res.json(item);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// ✅ DELETE featured item
+/* ── DELETE featured item ── */
 router.delete("/:id", async (req, res) => {
   try {
     await Featured.findByIdAndDelete(req.params.id);

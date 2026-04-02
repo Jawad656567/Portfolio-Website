@@ -11,15 +11,15 @@ export default function AdminActivities() {
   const [liveLink, setLiveLink] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false); // ✅ NEW
 
-  // Fetch projects
   const fetchActivities = async () => {
     try {
       const res = await API.get("/api/project");
       setActivities(res.data);
-      setLoading(false);
     } catch (err) {
       console.error(err);
+    } finally {
       setLoading(false);
     }
   };
@@ -28,7 +28,6 @@ export default function AdminActivities() {
     fetchActivities();
   }, []);
 
-  // Handle file upload + form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!description) return alert("Description required");
@@ -39,20 +38,24 @@ export default function AdminActivities() {
     if (imageFile) formData.append("image", imageFile);
 
     try {
+      setUploading(true); // ✅ START LOADING
+
       await API.post("/api/project", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+
       setDescription("");
       setLiveLink("");
       setImageFile(null);
-      fetchActivities(); // refresh list
+      fetchActivities();
     } catch (err) {
       console.error(err);
       alert("Failed to add project");
+    } finally {
+      setUploading(false); // ✅ END LOADING
     }
   };
 
-  // Delete project
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure to delete?")) return;
     try {
@@ -64,53 +67,92 @@ export default function AdminActivities() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="text-center mt-10">Loading...</p>;
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Admin Activities</h1>
+    <div className="p-6 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-center">Admin Activities</h1>
 
-      <form onSubmit={handleSubmit} className="mb-6 flex flex-col gap-3 max-w-md">
+      {/* FORM */}
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-lg rounded-xl p-5 mb-8 flex flex-col gap-4"
+      >
         <input
           type="text"
-          placeholder="Description"
+          placeholder="Project Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="border p-2 rounded"
+          disabled={uploading}
+          className="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
+
         <input
           type="text"
-          placeholder="Live Link"
+          placeholder="Live Link (https://...)"
           value={liveLink}
           onChange={(e) => setLiveLink(e.target.value)}
-          className="border p-2 rounded"
+          disabled={uploading}
+          className="border p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
+
         <input
           type="file"
           onChange={(e) => setImageFile(e.target.files[0])}
+          disabled={uploading}
           className="border p-2 rounded"
         />
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-          Add Project
+
+        <button
+          type="submit"
+          disabled={uploading}
+          className={`p-3 rounded text-white font-semibold transition ${
+            uploading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-blue-500 hover:bg-blue-600"
+          }`}
+        >
+          {uploading ? "Uploading..." : "Add Project"}
         </button>
       </form>
 
-      <h2 className="text-xl font-semibold mb-3">Existing Projects</h2>
+      {/* LIST */}
+      <h2 className="text-2xl font-semibold mb-4">Existing Projects</h2>
+
       <div className="grid gap-4">
         {activities.map((act) => (
-          <div key={act._id} className="border p-3 rounded flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              {act.image && <img src={act.image} alt="" className="w-16 h-16 object-cover rounded" />}
+          <div
+            key={act._id}
+            className="flex justify-between items-center bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition"
+          >
+            <div className="flex items-center gap-4">
+              {act.image && (
+                <img
+                  src={act.image}
+                  alt=""
+                  className="w-16 h-16 object-cover rounded-lg border"
+                />
+              )}
+
               <div>
-                <p>{act.description}</p>
-                <a href={act.liveLink} target="_blank" rel="noopener noreferrer" className="text-blue-500">
-                  {act.liveLink}
-                </a>
+                <p className="font-medium">{act.description}</p>
+
+                {act.liveLink && (
+                  <a
+                    href={act.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 text-sm hover:underline"
+                  >
+                    Visit Project
+                  </a>
+                )}
               </div>
             </div>
+
             <button
               onClick={() => handleDelete(act._id)}
-              className="bg-red-500 text-white px-3 py-1 rounded"
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition"
             >
               Delete
             </button>

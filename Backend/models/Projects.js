@@ -7,7 +7,7 @@ const projectSchema = new mongoose.Schema(
       required: true,
     },
     image: {
-      type: String, // Cloudinary URL
+      type: String,
       required: true,
     },
     liveLink: {
