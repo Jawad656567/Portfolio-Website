@@ -2,11 +2,49 @@ import React, { useRef, useState, useEffect } from "react";
 import { MapPin, Calendar, BookOpen, ChevronRight } from "lucide-react";
 import axios from "axios";
 
-// ✅ API setup (env se)
+// ✅ API setup
 const API = axios.create({
   baseURL: import.meta.env.VITE_API_URL
 });
 
+// ✅ Default education data
+const defaultEducation = [
+  {
+    _id: "1",
+    degree: "Bachelor in Computer Science",
+    short: "BSCS",
+    institute: "Government Lahore Degree College",
+    period: "Mar 2023 – Present",
+    city: "Swabi",
+    country: "Pakistan",
+    field: "Computer Science",
+    status: "ongoing",
+  },
+  {
+    _id: "2",
+    degree: "FSc Pre-Engineering",
+    short: "FSc",
+    institute: "Government Higher Secondary College",
+    period: "2021 – 2023",
+    city: "Swabi",
+    country: "Pakistan",
+    field: "Pre-Engineering",
+    status: "completed",
+  },
+  {
+    _id: "3",
+    degree: "Matric · Computer Science",
+    short: "Matric",
+    institute: "Government Higher Secondary College",
+    period: "2019 – 2020",
+    city: "Swabi",
+    country: "Pakistan",
+    field: "Computer Science",
+    status: "completed",
+  },
+];
+
+// ✅ Card content component
 function CardContent({ data, index, total, counter }) {
   return (
     <>
@@ -62,6 +100,7 @@ function CardContent({ data, index, total, counter }) {
   );
 }
 
+// ✅ Swipeable card component
 function EduCard({ data, index, total, isTop, onSwipedAway }) {
   const drag = useRef({
     active: false,
@@ -75,7 +114,6 @@ function EduCard({ data, index, total, isTop, onSwipedAway }) {
   const [tx, setTx] = useState(0);
   const [rot, setRot] = useState(0);
   const [flying, setFlying] = useState(false);
-
   const THRESHOLD = 80;
 
   const onStart = (clientX) => {
@@ -165,22 +203,25 @@ function EduCard({ data, index, total, isTop, onSwipedAway }) {
   );
 }
 
+// ✅ Main Education Component
 export default function Education() {
-  const [cards, setCards] = useState([]);
-
+  const [cards, setCards] = useState(defaultEducation);
   const total = cards.length;
 
-  // ✅ FETCH DATA FROM BACKEND
   useEffect(() => {
     const fetchEducation = async () => {
       try {
         const res = await API.get("/api/education");
-        setCards(res.data.reverse());
+        if (res.data && res.data.length > 0) {
+          setCards(res.data.reverse());
+          localStorage.setItem("eduData", JSON.stringify(res.data));
+        }
       } catch (err) {
         console.error("Error fetching education:", err);
+        const saved = localStorage.getItem("eduData");
+        if (saved) setCards(JSON.parse(saved));
       }
     };
-
     fetchEducation();
   }, []);
 
@@ -195,9 +236,7 @@ export default function Education() {
 
   return (
     <div className="px-6 pb-20 pt-6">
-      <h2 className="text-[25px] font-black text-gray-700 mb-3">
-        EDUCATION
-      </h2>
+      <h2 className="text-[25px] font-black text-gray-700 mb-3">EDUCATION</h2>
 
       <div className="lg:hidden text-[11px] text-gray-400 flex items-center gap-1 mb-7">
         <ChevronRight size={12} />
@@ -205,10 +244,7 @@ export default function Education() {
       </div>
 
       {/* Mobile Stack */}
-      <div
-        className="relative lg:hidden"
-        style={{ height: 300 + (total - 1) * 12 }}
-      >
+      <div className="relative lg:hidden" style={{ height: 300 + (total - 1) * 12 }}>
         {cards.map((card, i) => (
           <EduCard
             key={card._id || card.id}
@@ -231,11 +267,7 @@ export default function Education() {
               key={card._id || card.id}
               className="bg-white border border-gray-200 rounded-xl p-5"
             >
-              <CardContent
-                data={card}
-                index={i}
-                total={cards.length}
-              />
+              <CardContent data={card} index={i} total={cards.length} />
             </div>
           ))}
       </div>

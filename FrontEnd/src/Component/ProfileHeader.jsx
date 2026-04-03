@@ -8,14 +8,14 @@ const ProfileHeader = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-       const API = import.meta.env.VITE_API_URL;
+        const API = import.meta.env.VITE_API_URL;
         const res = await axios.get(`${API}/api/profile`);
 
         const data = res.data || {};
 
         setProfile({
           bannerUrl: data.banner || "bannerr.webp",
-profilePicUrl: data.profilePic || "profile.jpeg",
+          profilePicUrl: data.profilePic || "profile.jpeg",
         });
 
         setLoading(false);
@@ -29,7 +29,7 @@ profilePicUrl: data.profilePic || "profile.jpeg",
   }, []);
 
   return (
-   <div className="relative w-full z-20">
+    <div className="relative w-full z-20">
 
       {/* Banner */}
       <div className="w-full aspect-[4/1] lg:h-64 overflow-hidden">
@@ -38,7 +38,7 @@ profilePicUrl: data.profilePic || "profile.jpeg",
           <div className="w-full h-full shimmer"></div>
         ) : (
           <img
-            src={profile.bannerUrl}
+            src={profile.bannerUrl || "bannerr.webp"}
             alt="Banner"
             className="w-full h-full object-cover object-top"
           />
@@ -64,7 +64,7 @@ profilePicUrl: data.profilePic || "profile.jpeg",
             <div className="w-full h-full shimmer rounded-full"></div>
           ) : (
             <img
-              src={profile.profilePicUrl}
+              src={profile.profilePicUrl || "image.png"}
               alt="Profile"
               className="w-full h-full object-cover object-top"
             />
