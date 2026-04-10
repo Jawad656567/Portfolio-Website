@@ -1,28 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Card from "./Card";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { ThemeContext } from "../context/themeContext";
 
-// Axios instance
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL, // localhost or live backend
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 export default function Activities() {
-  const [activities, setActivities] = useState([]);
-  const [loading, setLoading] = useState(true); // loading state
-  const [error, setError] = useState(null);     // error state
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
 
-  // 🔥 Fetch data from backend
+  const [activities, setActivities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const res = await API.get("/api/project"); // backend route
+        const res = await API.get("/api/project");
         setActivities(res.data);
-        setLoading(false);
       } catch (err) {
         console.error("Error fetching activities:", err);
         setError("Failed to load activities");
+      } finally {
         setLoading(false);
       }
     };
@@ -30,18 +32,44 @@ export default function Activities() {
     fetchActivities();
   }, []);
 
-  // Responsive: mobile 1, desktop 3
   const visibleCount = window.innerWidth < 640 ? 1 : 3;
   const latestPosts = activities.slice(-visibleCount).reverse();
 
-  if (loading) return <p className="text-center mt-4">Loading activities...</p>;
-  if (error) return <p className="text-center mt-4 text-red-500">{error}</p>;
+  if (loading)
+    return (
+      <p className={`text-center mt-4 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+        Loading activities...
+      </p>
+    );
+
+  if (error)
+    return (
+      <p className="text-center mt-4 text-red-500">{error}</p>
+    );
 
   return (
-    <>
-      <div className="w-full border-t border-gray-300"></div>
-      <div className="bg-white pt-9 pl-7 pr-6 flex flex-col">
-        <h2 className="text-[25px] pr-4 font-black text-gray-700 mb-3">
+    <div
+      className={`relative transition-colors duration-500 ${
+        isDark ? "bg-gray-950 text-white" : "bg-white text-gray-800"
+      }`}
+    >
+      {/* 🔥 DOT BACKGROUND */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, ${
+            isDark ? "#fff" : "#000"
+          } 1px, transparent 0)`,
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+     
+
+      {/* CONTENT */}
+      <div className="relative md:ml-5 ml-0 pt-9 pl-7 pr-6 flex flex-col">
+        <h2 className="text-[25px] pr-4 font-black mb-3">
           Activities (Projects)
         </h2>
 
@@ -63,15 +91,18 @@ export default function Activities() {
         <div className="mt-8 text-center">
           <Link
             to="/activity"
-            className="text-gray-600 font-medium text-lg hover:text-black transition"
+            className={`font-medium text-lg transition ${
+              isDark
+                ? "text-gray-300 hover:text-white"
+                : "text-gray-600 hover:text-black"
+            }`}
           >
             Show all posts →
           </Link>
         </div>
 
-        {/* Bottom Border */}
-        <div className="mt-4 border-t border-gray-300 -mx-6"></div>
+       
       </div>
-    </>
+    </div>
   );
 }

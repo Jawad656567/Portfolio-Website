@@ -1,9 +1,41 @@
+/* Tailwind import */
 @import "tailwindcss";
 
+/* --- Theme Variables --- */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --primary-color: #007bff;
+  --shimmer-bg-start: #e2e8f0;
+  --shimmer-bg-mid: #edf2f7;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --primary-color: #1e90ff;
+  --shimmer-bg-start: #2a2a2a;
+  --shimmer-bg-mid: #3a3a3a;
+}
+
+/* General body styling */
+body {
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+
+
+/* --- Shimmer Effect --- */
 .shimmer {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #e2e8f0 0%, #edf2f7 50%, #e2e8f0 100%);
+  background: linear-gradient(
+    135deg,
+    var(--shimmer-bg-start) 0%,
+    var(--shimmer-bg-mid) 50%,
+    var(--shimmer-bg-start) 100%
+  );
 }
 
 .shimmer::after {
@@ -21,15 +53,6 @@
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-/* index.css */
-@keyframes shimmer {
-  0%   { background-position: 200% 0; }
+  0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
