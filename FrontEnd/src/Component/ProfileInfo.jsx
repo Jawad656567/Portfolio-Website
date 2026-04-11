@@ -194,8 +194,7 @@ const UserProfileCard = () => {
         </div>
       </div>
 
-      {/* Bottom Divider */}
-      <div className={`w-full h-[1px] ${isDark ? "bg-gray-700" : "bg-gray-300"} mt-2`} />
+     
     </div>
   );
 };

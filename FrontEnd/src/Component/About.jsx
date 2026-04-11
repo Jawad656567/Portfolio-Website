@@ -60,16 +60,13 @@ export default function LinkedInAbout() {
         }}
       />
 
-      <div className="max-w-6xl mr-auto ml-1 md:ml-5 flex flex-col md:flex-row items-center gap-14 relative">
+      <div className="max-w-6xl mr-auto ml-0 md:ml-5 flex flex-col md:flex-row items-center gap-14 relative">
 
         {/* LEFT SIDE */}
         <div className="flex-1">
-          <p className="text-1xl tracking-[4px] mt-7 uppercase  text-blue-500 font-semibold">
-            About Me
-          </p>
 
-          <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mt-3">
-            Building modern <br /> web experiences.
+          <h2 className="text-3xl md:text-4xl ml-1 font-extrabold leading-tight mt-3">
+            About Me <br /> Web experiences.
           </h2>
 
           <div className="w-16 h-1 rounded-full bg-gradient-to-r from-blue-500 to-blue-300 my-5" />

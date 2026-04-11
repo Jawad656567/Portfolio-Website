@@ -43,17 +43,15 @@ export default function Activities() {
     );
 
   if (error)
-    return (
-      <p className="text-center mt-4 text-red-500">{error}</p>
-    );
+    return <p className="text-center mt-4 text-red-500">{error}</p>;
 
   return (
     <div
       className={`relative transition-colors duration-500 ${
-        isDark ? "bg-gray-950 text-white" : "bg-white text-gray-800"
+        isDark ? "bg-gray-950 text-white" : "bg-[#F7F6F2] text-gray-800" // ✅ bg-white → bg-[#F7F6F2]
       }`}
     >
-      {/* 🔥 DOT BACKGROUND */}
+      {/* ✅ Dot background — same as LinkedInAbout */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.03]"
@@ -65,15 +63,13 @@ export default function Activities() {
         }}
       />
 
-     
-
       {/* CONTENT */}
-      <div className="relative md:ml-5 ml-0 pt-9 pl-7 pr-6 flex flex-col">
-        <h2 className="text-[25px] pr-4 font-black mb-3">
+      <div className="relative md:ml-5 ml-0 pl-7 pr-6 flex flex-col">
+        <h2 className="md:text-4xl text-2xl  pr-4 font-black mb-3">
           Activities (Projects)
         </h2>
 
-        <div className="grid gap-6 grid-cols-1 md:grid-cols-3 w-full">
+        <div className="grid gap-6 mt-9 grid-cols-1 md:grid-cols-3 w-full">
           {latestPosts.map((activity, index) => (
             <Card
               key={index}
@@ -100,8 +96,6 @@ export default function Activities() {
             Show all posts →
           </Link>
         </div>
-
-       
       </div>
     </div>
   );

@@ -1,13 +1,12 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { MapPin, Calendar, BookOpen, ChevronRight } from "lucide-react";
 import axios from "axios";
+import { ThemeContext } from "../context/themeContext";
 
-// ✅ API setup
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
-// ✅ Default education data
 const defaultEducation = [
   {
     _id: "1",
@@ -45,18 +44,22 @@ const defaultEducation = [
 ];
 
 // ✅ Card content component
-function CardContent({ data, index, total, counter }) {
+function CardContent({ data, index, total, counter, isDark }) {
   return (
     <>
       <div className="flex justify-between mb-2.5">
-        <span className="text-[11px] text-gray-400 uppercase">
+        <span className={`text-[11px] uppercase ${isDark ? "text-gray-500" : "text-gray-400"}`}>
           {data.short} · {data.field}
         </span>
 
         <span
           className={`text-[11px] px-3 py-[2px] rounded-full ${
             data.status === "ongoing"
-              ? "bg-black text-white"
+              ? isDark
+                ? "bg-white text-gray-900"
+                : "bg-black text-white"
+              : isDark
+              ? "bg-gray-800 text-gray-400 border border-gray-700"
               : "bg-gray-100 text-gray-500 border border-gray-200"
           }`}
         >
@@ -64,35 +67,33 @@ function CardContent({ data, index, total, counter }) {
         </span>
       </div>
 
-      <div className="text-[18px] font-bold text-gray-900 mb-1">
+      <div className={`text-[18px] font-bold mb-1 ${isDark ? "text-white" : "text-gray-900"}`}>
         {data.degree}
       </div>
 
-      <div className="text-[13px] text-gray-500 mb-4">
+      <div className={`text-[13px] mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
         {data.institute}
       </div>
 
-      <hr className="border-t border-gray-100 mb-3" />
+      <hr className={`mb-3 ${isDark ? "border-gray-800" : "border-gray-100"}`} />
 
-      <div className="flex items-center gap-1.5 text-[12px] text-gray-700 mb-1.5">
-        <Calendar size={12} className="text-gray-400" />
+      <div className={`flex items-center gap-1.5 text-[12px] mb-1.5 ${isDark ? "text-gray-400" : "text-gray-700"}`}>
+        <Calendar size={12} className={isDark ? "text-gray-600" : "text-gray-400"} />
         <span>{data.period}</span>
       </div>
 
-      <div className="flex items-center gap-1.5 text-[12px] text-gray-700 mb-1.5">
-        <MapPin size={12} className="text-gray-400" />
-        <span>
-          {data.city}, {data.country}
-        </span>
+      <div className={`flex items-center gap-1.5 text-[12px] mb-1.5 ${isDark ? "text-gray-400" : "text-gray-700"}`}>
+        <MapPin size={12} className={isDark ? "text-gray-600" : "text-gray-400"} />
+        <span>{data.city}, {data.country}</span>
       </div>
 
-      <div className="flex items-center gap-1.5 text-[12px] text-gray-700">
-        <BookOpen size={12} className="text-gray-400" />
+      <div className={`flex items-center gap-1.5 text-[12px] ${isDark ? "text-gray-400" : "text-gray-700"}`}>
+        <BookOpen size={12} className={isDark ? "text-gray-600" : "text-gray-400"} />
         <span>{data.field}</span>
       </div>
 
       {counter && (
-        <div className="text-[11px] text-gray-300 text-right mt-3">
+        <div className={`text-[11px] text-right mt-3 ${isDark ? "text-gray-700" : "text-gray-300"}`}>
           {index + 1} / {total}
         </div>
       )}
@@ -101,7 +102,7 @@ function CardContent({ data, index, total, counter }) {
 }
 
 // ✅ Swipeable card component
-function EduCard({ data, index, total, isTop, onSwipedAway }) {
+function EduCard({ data, index, total, isTop, onSwipedAway, isDark }) {
   const drag = useRef({
     active: false,
     startX: 0,
@@ -144,15 +145,12 @@ function EduCard({ data, index, total, isTop, onSwipedAway }) {
   const onEnd = () => {
     if (!drag.current.active) return;
     drag.current.active = false;
-
     const projected = drag.current.x + drag.current.vel * 8;
-
     if (Math.abs(projected) > THRESHOLD) {
       const dir = projected > 0 ? 1 : -1;
       setFlying(true);
       setTx(dir * 550);
       setRot(dir * 28);
-
       setTimeout(() => {
         onSwipedAway();
         setTx(0);
@@ -172,7 +170,11 @@ function EduCard({ data, index, total, isTop, onSwipedAway }) {
 
   return (
     <div
-      className="absolute w-full bg-white border border-gray-200 rounded-xl p-5 select-none cursor-grab active:cursor-grabbing"
+      className={`absolute w-full rounded-xl p-5 select-none cursor-grab active:cursor-grabbing border ${
+        isDark
+          ? "bg-gray-900 border-gray-800"
+          : "bg-white border-gray-200"
+      }`}
       style={{
         transform: isTop
           ? `translateX(${tx}px) rotate(${rot}deg)`
@@ -198,13 +200,16 @@ function EduCard({ data, index, total, isTop, onSwipedAway }) {
       }}
       onTouchEnd={onEnd}
     >
-      <CardContent data={data} index={index} total={total} counter />
+      <CardContent data={data} index={index} total={total} counter isDark={isDark} />
     </div>
   );
 }
 
 // ✅ Main Education Component
 export default function Education() {
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
+
   const [cards, setCards] = useState(defaultEducation);
   const total = cards.length;
 
@@ -235,42 +240,85 @@ export default function Education() {
   };
 
   return (
-    <div className="px-6 pb-20 pt-6">
-      <h2 className="text-[25px] font-black text-gray-700 mb-3">EDUCATION</h2>
+    <section
+      className={`relative overflow-hidden px-5 transition-colors duration-500 ${
+        isDark ? "bg-gray-950 text-white" : "bg-[#F7F6F2] text-slate-900"
+      }`}
+    >
+      {/* Dotted background — same as About */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, ${
+            isDark ? "#fff" : "#000"
+          } 1px, transparent 0)`,
+          backgroundSize: "24px 24px",
+        }}
+      />
 
-      <div className="lg:hidden text-[11px] text-gray-400 flex items-center gap-1 mb-7">
-        <ChevronRight size={12} />
-        <span>Swipe to browse</span>
-      </div>
+      <div className="relative px-1 pb-6 pt-6">
+        <h2
+          className={`text-[25px] font-black mb-3 ${
+            isDark ? "text-white" : "text-gray-700"
+          }`}
+        >
+          EDUCATION
+        </h2>
 
-      {/* Mobile Stack */}
-      <div className="relative lg:hidden" style={{ height: 300 + (total - 1) * 12 }}>
-        {cards.map((card, i) => (
-          <EduCard
-            key={card._id || card.id}
-            data={card}
-            index={i}
-            total={total}
-            isTop={i === total - 1}
-            onSwipedAway={handleSwipedAway}
-          />
-        ))}
-      </div>
+        <div className="w-16 h-1 rounded-full bg-gradient-to-r from-blue-500 to-blue-300 mb-5" />
 
-      {/* Desktop Grid */}
-      <div className="hidden lg:grid lg:grid-cols-3 gap-5">
-        {cards
-          .slice()
-          .reverse()
-          .map((card, i) => (
-            <div
+        <div
+          className={`lg:hidden text-[11px] flex items-center gap-1 mb-4 ${
+            isDark ? "text-gray-600" : "text-gray-400"
+          }`}
+        >
+          <ChevronRight size={12} />
+          <span>Swipe to browse</span>
+        </div>
+
+        {/* Mobile Stack */}
+        <div
+          className="relative lg:hidden"
+          style={{ height: 220 + (total - 1) * 12 }}
+        >
+          {cards.map((card, i) => (
+            <EduCard
               key={card._id || card.id}
-              className="bg-white border border-gray-200 rounded-xl p-5"
-            >
-              <CardContent data={card} index={i} total={cards.length} />
-            </div>
+              data={card}
+              index={i}
+              total={total}
+              isTop={i === total - 1}
+              onSwipedAway={handleSwipedAway}
+              isDark={isDark}
+            />
           ))}
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden lg:grid lg:grid-cols-3 gap-5">
+          {cards
+            .slice()
+            .reverse()
+            .map((card, i) => (
+              <div
+                key={card._id || card.id}
+                className={`rounded-xl p-5 border ${
+                  isDark
+                    ? "bg-gray-900 border-gray-800"
+                    : "bg-white border-gray-200"
+                }`}
+              >
+                <CardContent
+                  data={card}
+                  index={i}
+                  total={cards.length}
+                  isDark={isDark}
+                />
+              </div>
+            ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
