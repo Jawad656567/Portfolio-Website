@@ -1,18 +1,45 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "../context/themeContext";
 
 const navLinks = ["Home", "About", "Activities", "Education", "Experience", "Contact"];
 
 export default function LinkedInFooter() {
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
+
   return (
-    <footer className="bg-white border-t border-gray-200 text-gray-600 pt-10 pb-5">
-      <div className="mx-auto px-6" style={{ maxWidth: 1128 }}>
+    <footer
+      className={`relative overflow-hidden pt-10 pb-5 transition-colors duration-500 ${
+        isDark
+          ? "bg-gray-950 text-gray-300 border-gray-800"
+          : "bg-white text-gray-600 border-gray-200"
+      } border-t`}
+    >
+      {/* DOT BACKGROUND */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, ${
+            isDark ? "#fff" : "#000"
+          } 1px, transparent 0)`,
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      <div className="relative z-10 mx-auto px-6" style={{ maxWidth: 1128 }}>
 
         {/* Top Section */}
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 mb-8">
 
           {/* Profile Pic */}
           <div className="flex flex-col items-center gap-3">
-            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-black shadow-lg bg-gray-100 flex items-center justify-center">
+            <div
+              className={`w-20 h-20 rounded-full overflow-hidden border-2 shadow-lg flex items-center justify-center ${
+                isDark ? "border-white bg-gray-900" : "border-black bg-gray-100"
+              }`}
+            >
               <img
                 src="/logoo.jpeg"
                 alt="Profile"
@@ -23,47 +50,71 @@ export default function LinkedInFooter() {
 
           {/* Nav Links */}
           <div className="flex flex-col items-center md:items-end gap-3">
-            <p className="text-gray-400 text-xs uppercase tracking-widest mb-1">Navigation</p>
-            <div className="flex flex-wrap justify-center md:justify-end gap-x-5 gap-y-2">
+            <p className="text-gray-400 text-xs uppercase tracking-widest mb-1">
+              Navigation
+            </p>
 
+            <div className="flex flex-wrap justify-center md:justify-end gap-x-5 gap-y-2">
               {navLinks.map((link) =>
                 link === "Contact" ? (
                   <Link
                     key={link}
                     to="/contact"
-                    className="text-sm text-gray-500 hover:text-blue-600 transition-colors duration-200 relative group"
+                    className={`text-sm relative group transition-colors duration-200 ${
+                      isDark
+                        ? "text-gray-300 hover:text-blue-400"
+                        : "text-gray-500 hover:text-blue-600"
+                    }`}
                   >
                     {link}
-                    <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-blue-600 group-hover:w-full transition-all duration-300"></span>
+                    <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-blue-500 group-hover:w-full transition-all duration-300"></span>
                   </Link>
                 ) : (
                   <a
                     key={link}
                     href={`#${link.toLowerCase()}`}
-                    className="text-sm text-gray-500 hover:text-blue-600 transition-colors duration-200 relative group"
+                    className={`text-sm relative group transition-colors duration-200 ${
+                      isDark
+                        ? "text-gray-300 hover:text-blue-400"
+                        : "text-gray-500 hover:text-blue-600"
+                    }`}
                   >
                     {link}
-                    <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-blue-600 group-hover:w-full transition-all duration-300"></span>
+                    <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-blue-500 group-hover:w-full transition-all duration-300"></span>
                   </a>
                 )
               )}
-
             </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-200 mb-4" />
+        <div className={`border-t mb-4 ${isDark ? "border-gray-800" : "border-gray-200"}`} />
 
         {/* Bottom Row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
-          <span>
-            © {new Date().getFullYear()} 
-            <span className="text-blue-600 font-semibold"> JWD Coding</span>. 
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
+          <span className={isDark ? "text-gray-400" : "text-gray-400"}>
+            © {new Date().getFullYear()}
+            <span className="text-blue-500 font-semibold"> JWD Coding</span>.
             All rights reserved.
           </span>
+
           <div className="flex gap-4">
-            <a href="#" className="hover:text-blue-600 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-blue-600 transition-colors">Terms of Use</a>
+            <a
+              href="#"
+              className={`transition-colors ${
+                isDark ? "hover:text-blue-400" : "hover:text-blue-600"
+              }`}
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="#"
+              className={`transition-colors ${
+                isDark ? "hover:text-blue-400" : "hover:text-blue-600"
+              }`}
+            >
+              Terms of Use
+            </a>
           </div>
         </div>
 

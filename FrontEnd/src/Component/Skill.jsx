@@ -84,13 +84,18 @@ export default function Skills() {
       <div className="relative px-1 pt-6 pb-6">
 
         {/* Heading */}
-        <h2 className={`text-[25px] font-black mb-3 ${isDark ? "text-white" : "text-gray-700"}`}>
-          My Skills & Tools
-        </h2>
+        <h2
+  className="md:text-4xl mb-6 text-2xl md:ml-4 md:mb-7 font-bold leading-tight"
+  style={{
+    fontFamily: "'Playfair Display', Georgia, serif",
+    color: isDark ? "#f1f0ec" : "#1a1917",
+    letterSpacing: "-0.02em",
+  }}
+>
+  My Skill & Tools
+</h2>
 
-        {/* Blue divider */}
-        <div className="w-16 h-1 rounded-full bg-gradient-to-r from-blue-500 to-blue-300 mb-6" />
-
+       
         {/* Category Tabs */}
         <div className="flex justify-center gap-3 mb-8 flex-wrap">
           {categories.map(cat => (

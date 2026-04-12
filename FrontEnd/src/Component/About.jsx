@@ -65,7 +65,7 @@ export default function LinkedInAbout() {
         {/* LEFT SIDE */}
         <div className="flex-1">
 
-          <h2 className="text-3xl md:text-4xl ml-1 font-extrabold leading-tight mt-3">
+          <h2 className="text-2xl md:text-4xl ml-1 font-extrabold leading-tight mt-3">
             About Me <br /> Web experiences.
           </h2>
 

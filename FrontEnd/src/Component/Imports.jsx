@@ -3,6 +3,7 @@ import ProfileInfo from "./ProfileInfo";
 import About from "./About";
 import Featured from "./Featured.jsx";
 import Activities from "./Activities";
+import Process from "./WorkProcess.jsx";
 import Skill from './Skill.jsx';
 import Education from "./Education.jsx";
 import Experience from "./Experience.jsx";
@@ -23,7 +24,7 @@ export default function Imports() {
             <section id="about">
                 <About />
             </section>
-            
+
             <section id="featured">
                 <Featured />
             </section>
@@ -38,6 +39,10 @@ export default function Imports() {
 
             <section id="experience">
                 <Experience />
+            </section>
+
+            <section id="process">
+                <Process />
             </section>
 
             <section id="skill">

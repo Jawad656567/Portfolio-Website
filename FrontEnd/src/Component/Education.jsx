@@ -53,15 +53,14 @@ function CardContent({ data, index, total, counter, isDark }) {
         </span>
 
         <span
-          className={`text-[11px] px-3 py-[2px] rounded-full ${
-            data.status === "ongoing"
+          className={`text-[11px] px-3 py-[2px] rounded-full ${data.status === "ongoing"
               ? isDark
                 ? "bg-white text-gray-900"
                 : "bg-black text-white"
               : isDark
-              ? "bg-gray-800 text-gray-400 border border-gray-700"
-              : "bg-gray-100 text-gray-500 border border-gray-200"
-          }`}
+                ? "bg-gray-800 text-gray-400 border border-gray-700"
+                : "bg-gray-100 text-gray-500 border border-gray-200"
+            }`}
         >
           {data.status === "ongoing" ? "Enrolled" : "Completed"}
         </span>
@@ -170,11 +169,10 @@ function EduCard({ data, index, total, isTop, onSwipedAway, isDark }) {
 
   return (
     <div
-      className={`absolute w-full rounded-xl p-5 select-none cursor-grab active:cursor-grabbing border ${
-        isDark
+      className={`absolute w-full rounded-xl p-5 select-none cursor-grab active:cursor-grabbing border ${isDark
           ? "bg-gray-900 border-gray-800"
           : "bg-white border-gray-200"
-      }`}
+        }`}
       style={{
         transform: isTop
           ? `translateX(${tx}px) rotate(${rot}deg)`
@@ -241,37 +239,37 @@ export default function Education() {
 
   return (
     <section
-      className={`relative overflow-hidden px-5 transition-colors duration-500 ${
-        isDark ? "bg-gray-950 text-white" : "bg-[#F7F6F2] text-slate-900"
-      }`}
+      className={`relative overflow-hidden px-5 transition-colors duration-500 ${isDark ? "bg-gray-950 text-white" : "bg-[#F7F6F2] text-slate-900"
+        }`}
     >
       {/* Dotted background — same as About */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.03]"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, ${
-            isDark ? "#fff" : "#000"
-          } 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, ${isDark ? "#fff" : "#000"
+            } 1px, transparent 0)`,
           backgroundSize: "24px 24px",
         }}
       />
 
       <div className="relative px-1 pb-6 pt-6">
-        <h2
-          className={`text-[25px] font-black mb-3 ${
-            isDark ? "text-white" : "text-gray-700"
-          }`}
-        >
-          EDUCATION
-        </h2>
+       <h2
+  className="md:text-4xl text-2xl md:ml-4 md:mb-7 font-bold leading-tight"
+  style={{
+    fontFamily: "'Playfair Display', Georgia, serif",
+    color: isDark ? "#f1f0ec" : "#1a1917",
+    letterSpacing: "-0.02em",
+  }}
+>
+  Education
+</h2>
 
-        <div className="w-16 h-1 rounded-full bg-gradient-to-r from-blue-500 to-blue-300 mb-5" />
+
 
         <div
-          className={`lg:hidden text-[11px] flex items-center gap-1 mb-4 ${
-            isDark ? "text-gray-600" : "text-gray-400"
-          }`}
+          className={`lg:hidden text-[11px] flex items-center gap-1 mb-4 ${isDark ? "text-gray-600" : "text-gray-400"
+            }`}
         >
           <ChevronRight size={12} />
           <span>Swipe to browse</span>
@@ -303,11 +301,10 @@ export default function Education() {
             .map((card, i) => (
               <div
                 key={card._id || card.id}
-                className={`rounded-xl p-5 border ${
-                  isDark
+                className={`rounded-xl p-5 border ${isDark
                     ? "bg-gray-900 border-gray-800"
                     : "bg-white border-gray-200"
-                }`}
+                  }`}
               >
                 <CardContent
                   data={card}

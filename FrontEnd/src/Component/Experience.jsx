@@ -64,27 +64,18 @@ export default function WorkExperience() {
 
       <div style={{ position: "relative", padding: "24px 4px 24px" }}>
         {/* Heading */}
-        <h2
-          style={{
-            fontSize: 25,
-            fontWeight: 900,
-            color: isDark ? "#ffffff" : "#374151",
-            marginBottom: 12,
-          }}
-        >
-          Work Experience
-        </h2>
+         <h2
+  className="md:text-4xl text-2xl mb-5  md:ml-4 md:mb-7 font-bold leading-tight"
+  style={{
+    fontFamily: "'Playfair Display', Georgia, serif",
+    color: isDark ? "#f1f0ec" : "#1a1917",
+    letterSpacing: "-0.02em",
+  }}
+>
+  Work Experience
+</h2>
 
-        {/* Blue divider */}
-        <div
-          style={{
-            width: 64,
-            height: 4,
-            borderRadius: 999,
-            background: "linear-gradient(to right, #3b82f6, #93c5fd)",
-            marginBottom: 24,
-          }}
-        />
+
 
         {/* Card */}
         <div
