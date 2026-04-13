@@ -6,8 +6,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from "./context/themeContext"; // ✅ ADD THIS
 
 import App from './App.jsx';
-import AllActivity from './Component/AllActivity.jsx';
-import Contact from './Component/Contact.jsx';
+import AllActivity from './Pages/AllActivity.jsx';
+import Contact from './Pages/Contact.jsx';
 import Login from './Component/Login.jsx';
 
 import ProtectedRoute from './admin/ProtectedRoute.jsx';

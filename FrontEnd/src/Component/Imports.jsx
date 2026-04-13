@@ -4,6 +4,7 @@ import About from "./About";
 import Featured from "./Featured.jsx";
 import Activities from "./Activities";
 import Process from "./WorkProcess.jsx";
+import Testomonials from "./Testomonial.jsx"
 import Skill from './Skill.jsx';
 import Education from "./Education.jsx";
 import Experience from "./Experience.jsx";
@@ -43,6 +44,10 @@ export default function Imports() {
 
             <section id="process">
                 <Process />
+            </section>
+
+            <section id="test">
+                <Testomonials />
             </section>
 
             <section id="skill">

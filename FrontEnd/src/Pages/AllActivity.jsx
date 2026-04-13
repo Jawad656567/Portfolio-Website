@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import Card from "./Card";
+import Card from "../Component/Card";
 import axios from "axios";
 import { ThemeContext } from "../context/themeContext";
 

@@ -13,23 +13,22 @@ export default function LinkedInFooter() {
       className={`relative overflow-hidden pt-10 pb-5 transition-colors duration-500 ${
         isDark
           ? "bg-gray-950 text-gray-300 border-gray-800"
-          : "bg-white text-gray-600 border-gray-200"
+          : "bg-[#F7F6F2] text-gray-700 border-gray-200"
       } border-t`}
     >
-      {/* DOT BACKGROUND */}
+      {/* DOT BACKGROUND (INLINE ONLY) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        className="pointer-events-none absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, ${
-            isDark ? "#fff" : "#000"
+            isDark ? "#ffffff" : "#000000"
           } 1px, transparent 0)`,
           backgroundSize: "24px 24px",
         }}
       />
 
       <div className="relative z-10 mx-auto px-6" style={{ maxWidth: 1128 }}>
-
         {/* Top Section */}
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 mb-8">
 
@@ -88,11 +87,16 @@ export default function LinkedInFooter() {
           </div>
         </div>
 
-        <div className={`border-t mb-4 ${isDark ? "border-gray-800" : "border-gray-200"}`} />
+        {/* Divider */}
+        <div
+          className={`border-t mb-4 ${
+            isDark ? "border-gray-800" : "border-gray-200"
+          }`}
+        />
 
         {/* Bottom Row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
-          <span className={isDark ? "text-gray-400" : "text-gray-400"}>
+          <span className="text-gray-400">
             © {new Date().getFullYear()}
             <span className="text-blue-500 font-semibold"> JWD Coding</span>.
             All rights reserved.
@@ -117,7 +121,6 @@ export default function LinkedInFooter() {
             </a>
           </div>
         </div>
-
       </div>
     </footer>
   );

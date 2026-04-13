@@ -2,7 +2,7 @@ import React from "react";
 import { ThemeProvider } from "./context/themeContext"; // Step 1
 import Navbar from "./Component/Navbar";
 import Imports from "./Component/Imports";
-import Loader from "./Component/Loader";
+import Loader from "./Loader/Loader";
 
 export default function App() {
   return (

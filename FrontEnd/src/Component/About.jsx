@@ -72,14 +72,14 @@ export default function LinkedInAbout() {
           <div className="w-16 h-1 rounded-full bg-gradient-to-r from-blue-500 to-blue-300 my-5" />
 
           {loading ? (
-            <p className="text-slate-400">Loading...</p>
+            <p className="text-slate-600">Loading...</p>
           ) : (
             <>
-              <p className="text-slate-400 leading-relaxed text-sm md:text-base">
+              <p className="text-slate-600 leading-relaxed text-sm md:text-base">
                 {bio?.para1 || DEFAULT_BIO_1}
               </p>
 
-              <p className="text-slate-400 leading-relaxed text-sm md:text-base mt-4">
+              <p className="text-slate-600 leading-relaxed text-sm md:text-base mt-4">
                 {bio?.para2 || DEFAULT_BIO_2}
               </p>
             </>
@@ -90,7 +90,7 @@ export default function LinkedInAbout() {
             {["React", "Tailwind", "JavaScript", "Frontend"].map((t) => (
               <span
                 key={t}
-                className="text-xs px-3 py-1 rounded-full border border-slate-700 text-slate-400"
+                className="text-xs px-3 py-1 rounded-full border border-slate-700 text-slate-500"
               >
                 {t}
               </span>
