@@ -255,7 +255,7 @@ export default function Education() {
 
       <div className="relative px-1 pb-6 pt-6">
        <h2
-  className="md:text-4xl text-2xl md:ml-4 md:mb-7 font-bold leading-tight"
+  className="md:text-4xl text-2xl md:ml-5 md:mb-7 font-bold leading-tight"
   style={{
     fontFamily: "'Playfair Display', Georgia, serif",
     color: isDark ? "#f1f0ec" : "#1a1917",
