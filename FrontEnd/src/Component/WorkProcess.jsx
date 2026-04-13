@@ -56,21 +56,23 @@ export default function WorkProcess() {
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
 
-  const descText = isDark ? "text-gray-600" : "text-slate-600";
-  const headText = isDark ? "text-white" : "text-slate-900";
+  const descText = isDark ? "text-slate-400" : "text-slate-600";
+  const headText = isDark ? "text-slate-200" : "text-slate-900";
 
   return (
     <section
-      className={`relative overflow-hidden px-5 py-16 transition-colors duration-500 ${isDark ? "bg-gray-950 text-white" : "bg-[#F7F6F2] text-slate-900"
-        }`}
+      className={`relative overflow-hidden px-5 py-16 transition-colors duration-500 ${
+        isDark ? "bg-gray-950 text-white" : "bg-[#F7F6F2] text-slate-900"
+      }`}
     >
       {/* Dot background */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.03]"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, ${isDark ? "#fff" : "#000"
-            } 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, ${
+            isDark ? "#fff" : "#000"
+          } 1px, transparent 0)`,
           backgroundSize: "24px 24px",
         }}
       />
@@ -80,13 +82,12 @@ export default function WorkProcess() {
 
           {/* Left Text */}
           <div className="lg:w-2/5 lg:sticky lg:top-24">
+
             <h2
-              className="md:text-4xl text-2xl mb-5 md:-ml-3 md:mb-7 font-bold leading-tight"
               style={{
-                fontFamily: "'Playfair Display', Georgia, serif",
-                color: isDark ? "#f1f0ec" : "#1a1917",
-                letterSpacing: "-0.02em",
+                color: isDark ? "#e5e7eb" : "#1a1917",
               }}
+              className="md:text-4xl text-2xl mb-5 md:-ml-3 md:mb-7 font-bold leading-tight"
             >
               Work Process
             </h2>
@@ -105,18 +106,18 @@ export default function WorkProcess() {
             {steps.map((step) => (
               <div
                 key={step.number}
-                className={`rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 ${isDark
+                className={`rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 ${
+                  isDark
                     ? "bg-gray-900 border border-gray-800"
                     : "bg-white border border-gray-200 shadow-sm"
-                  }`}
+                }`}
               >
                 <div
-                  className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 ${isDark ? "bg-white text-black" : "bg-black text-white"
-                    }`}
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 ${
+                    isDark ? "bg-gray-800 text-slate-200" : "bg-black text-white"
+                  }`}
                 >
-                  <span className="text-current">
-                    {step.icon}
-                  </span>
+                  {step.icon}
                 </div>
 
                 <h3 className={`text-base font-bold mb-2 ${headText}`}>

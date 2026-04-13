@@ -44,11 +44,11 @@ export default function LinkedInAbout() {
 
   return (
     <section
-      className={`relative overflow-hidden  px-5 transition-colors duration-500 ${
+      className={`relative overflow-hidden px-5 transition-colors duration-500 ${
         isDark ? "bg-gray-950 text-white" : "bg-[#F7F6F2] text-slate-900"
       }`}
     >
-      {/* Subtle dotted background (from FeaturedSection style) */}
+      {/* dotted background */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.03]"
@@ -65,21 +65,38 @@ export default function LinkedInAbout() {
         {/* LEFT SIDE */}
         <div className="flex-1">
 
-          <h2 className="text-2xl md:text-4xl ml-1 font-extrabold leading-tight mt-3">
+          <h2
+            style={{
+              color: isDark ? "#e5e7eb" : "#1a1917",
+            }}
+            className="text-2xl md:text-4xl ml-1 font-extrabold leading-tight mt-3"
+          >
             About Me <br /> Web experiences.
           </h2>
 
           <div className="w-16 h-1 rounded-full bg-gradient-to-r from-blue-500 to-blue-300 my-5" />
 
           {loading ? (
-            <p className="text-slate-600">Loading...</p>
+            <p style={{ color: isDark ? "#9ca3af" : "#6b7280" }}>
+              Loading...
+            </p>
           ) : (
             <>
-              <p className="text-slate-600 leading-relaxed text-sm md:text-base">
+              <p
+                style={{
+                  color: isDark ? "#9ca3af" : "#374151",
+                }}
+                className="leading-relaxed text-sm md:text-base"
+              >
                 {bio?.para1 || DEFAULT_BIO_1}
               </p>
 
-              <p className="text-slate-600 leading-relaxed text-sm md:text-base mt-4">
+              <p
+                style={{
+                  color: isDark ? "#9ca3af" : "#374151",
+                }}
+                className="leading-relaxed text-sm md:text-base mt-4"
+              >
                 {bio?.para2 || DEFAULT_BIO_2}
               </p>
             </>
@@ -90,7 +107,11 @@ export default function LinkedInAbout() {
             {["React", "Tailwind", "JavaScript", "Frontend"].map((t) => (
               <span
                 key={t}
-                className="text-xs px-3 py-1 rounded-full border border-slate-700 text-slate-500"
+                style={{
+                  borderColor: isDark ? "#374151" : "#e5e7eb",
+                  color: isDark ? "#9ca3af" : "#374151",
+                }}
+                className="text-xs px-3 py-1 rounded-full border"
               >
                 {t}
               </span>
