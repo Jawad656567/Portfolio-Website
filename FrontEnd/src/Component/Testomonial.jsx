@@ -78,11 +78,11 @@ export default function TestimonialSlider() {
 
   return (
     <section
-      className={`relative overflow-hidden px-5 py-5 transition-colors duration-500 ${
+      className={`relative overflow-hidden px-5  transition-colors duration-500 ${
         isDark ? "bg-gray-950 text-white" : "bg-[#F7F6F2] text-slate-900"
       }`}
     >
-      {/* Dotted background — same as LinkedInAbout */}
+      {/* Dotted background */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.03]"
@@ -96,23 +96,22 @@ export default function TestimonialSlider() {
 
       <div className="max-w-3xl mx-auto relative">
 
-        {/* Label */}
-        <p
-          className={`text-xs font-semibold uppercase tracking-widest mb-3 ${
-            isDark ? "text-slate-600" : "text-slate-400"
-          }`}
-        >
-          Client Stories
-        </p>
-
+      
         {/* Heading */}
         <h2 className="text-2xl md:text-4xl font-extrabold leading-tight mb-3">
           What clients say about{" "}
-          <span className="text-blue-500">working with me</span>
+          {/* ✅ dark → white, light → slate-900 */}
+          <span className={isDark ? "text-white" : "text-slate-900"}>
+            working with me
+          </span>
         </h2>
 
-        {/* Blue underline — same as LinkedInAbout */}
-        <div className="w-16 h-1 rounded-full bg-gradient-to-r from-blue-500 to-blue-300 mb-10" />
+        {/* Underline — ✅ dark → white, light → slate-900 */}
+        <div
+          className={`w-16 h-1 rounded-full mb-10 ${
+            isDark ? "bg-white" : "bg-slate-900"
+          }`}
+        />
 
         {/* Card */}
         <div
@@ -127,19 +126,20 @@ export default function TestimonialSlider() {
             transition: "opacity 0.3s ease, transform 0.3s ease",
           }}
         >
-          {/* Top blue accent line */}
+          {/* Top accent line — ✅ dark → white gradient, light → slate-900 gradient */}
           <div
             className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl"
             style={{
-              background:
-                "linear-gradient(90deg, #3b82f6, #60a5fa, transparent)",
+              background: isDark
+                ? "linear-gradient(90deg, #ffffff, #94a3b8, transparent)"
+                : "linear-gradient(90deg, #0f172a, #475569, transparent)",
             }}
           />
 
-          {/* Big quote mark */}
+          {/* Big quote mark — ✅ dark → white/20, light → slate-900/15 */}
           <p
             className={`text-6xl font-black leading-none mb-2 select-none ${
-              isDark ? "text-blue-500/20" : "text-blue-500/15"
+              isDark ? "text-white/20" : "text-slate-900/15"
             }`}
           >
             "
@@ -163,8 +163,14 @@ export default function TestimonialSlider() {
 
           {/* Author row */}
           <div className="flex items-center gap-3">
-            {/* Avatar circle */}
-            <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+            {/* Avatar circle — ✅ dark → white bg + dark text, light → slate-900 bg + white text */}
+            <div
+              className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
+                isDark
+                  ? "bg-white text-slate-900"
+                  : "bg-slate-900 text-white"
+              }`}
+            >
               {getInitials(t.name)}
             </div>
 
@@ -200,7 +206,7 @@ export default function TestimonialSlider() {
 
         {/* Bottom: dots + arrow buttons */}
         <div className="flex items-center justify-between mt-5">
-          {/* Dots */}
+          {/* Dots — ✅ active dot: dark → white, light → slate-900 */}
           <div className="flex items-center gap-2">
             {testimonials.map((_, i) => (
               <button
@@ -208,7 +214,9 @@ export default function TestimonialSlider() {
                 onClick={() => go(i)}
                 className={`h-[5px] rounded-full border-none cursor-pointer p-0 transition-all duration-300 ${
                   i === current
-                    ? "bg-blue-500 w-5"
+                    ? isDark
+                      ? "bg-white w-5"
+                      : "bg-slate-900 w-5"
                     : isDark
                     ? "bg-slate-800 w-[5px]"
                     : "bg-slate-300 w-[5px]"
@@ -217,24 +225,24 @@ export default function TestimonialSlider() {
             ))}
           </div>
 
-          {/* Arrow buttons */}
+          {/* Arrow buttons — ✅ dark → white text, light → slate-900 text */}
           <div className="flex gap-2">
             <button
               onClick={() => go(current - 1)}
-              className={`w-[34px] h-[34px] rounded-full flex items-center justify-center text-sm text-blue-500 cursor-pointer transition-colors ${
+              className={`w-[34px] h-[34px] rounded-full flex items-center justify-center text-sm cursor-pointer transition-colors ${
                 isDark
-                  ? "border border-slate-800 hover:bg-slate-800"
-                  : "border border-slate-200 hover:bg-slate-100"
+                  ? "text-white border border-slate-800 hover:bg-slate-800"
+                  : "text-slate-900 border border-slate-200 hover:bg-slate-100"
               }`}
             >
               ←
             </button>
             <button
               onClick={() => go(current + 1)}
-              className={`w-[34px] h-[34px] rounded-full flex items-center justify-center text-sm text-blue-500 cursor-pointer transition-colors ${
+              className={`w-[34px] h-[34px] rounded-full flex items-center justify-center text-sm cursor-pointer transition-colors ${
                 isDark
-                  ? "border border-slate-800 hover:bg-slate-800"
-                  : "border border-slate-200 hover:bg-slate-100"
+                  ? "text-white border border-slate-800 hover:bg-slate-800"
+                  : "text-slate-900 border border-slate-200 hover:bg-slate-100"
               }`}
             >
               →
@@ -242,7 +250,6 @@ export default function TestimonialSlider() {
           </div>
         </div>
 
-        
       </div>
     </section>
   );
