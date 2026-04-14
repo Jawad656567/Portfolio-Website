@@ -2,17 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { ThemeContext } from "../context/themeContext";
 
-const DEFAULT_BIO_1 =
-  "Computer Science student in my 6th semester, focused on Front-End Development. I build responsive and modern web applications using React and Tailwind CSS with a strong focus on clean UI and maintainable code.";
-
-const DEFAULT_BIO_2 =
-  "Passionate about turning ideas into smooth user experiences. My goal is to grow as a developer who bridges design and engineering while continuously learning new technologies.";
-
 export default function LinkedInAbout() {
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
 
-  const [bio, setBio] = useState(null);
+  const [paragraphs, setParagraphs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -32,13 +26,18 @@ export default function LinkedInAbout() {
       try {
         const API = import.meta.env.VITE_API_URL;
         const res = await axios.get(`${API}/api/about`);
-        if (res.data?.bio) setBio(res.data.bio);
+
+        const data = res.data?.data || res.data;
+
+        setParagraphs(data?.paragraphs || []);
       } catch (e) {
         console.log(e);
+        setParagraphs([]);
       } finally {
         setLoading(false);
       }
     };
+
     fetchAbout();
   }, []);
 
@@ -48,7 +47,6 @@ export default function LinkedInAbout() {
         isDark ? "bg-gray-950 text-white" : "bg-[#F7F6F2] text-slate-900"
       }`}
     >
-      {/* dotted background */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.03]"
@@ -69,37 +67,27 @@ export default function LinkedInAbout() {
             style={{
               color: isDark ? "#e5e7eb" : "#1a1917",
             }}
-            className="text-2xl md:text-4xl ml-1 font-extrabold leading-tight mt-3"
+            className="text-2xl md:mb-7 mb-5 md:text-4xl mr-1 font-extrabold leading-tight mt-3"
           >
             About Me <br /> Web experiences.
           </h2>
-
-          <div className="w-16 h-1 rounded-full bg-gradient-to-r from-blue-500 to-blue-300 my-5" />
 
           {loading ? (
             <p style={{ color: isDark ? "#9ca3af" : "#6b7280" }}>
               Loading...
             </p>
           ) : (
-            <>
+            paragraphs.map((p, i) => (
               <p
+                key={i}
                 style={{
                   color: isDark ? "#9ca3af" : "#374151",
                 }}
-                className="leading-relaxed text-sm md:text-base"
+                className="leading-relaxed text-sm md:text-base mt-3"
               >
-                {bio?.para1 || DEFAULT_BIO_1}
+                {p.text}
               </p>
-
-              <p
-                style={{
-                  color: isDark ? "#9ca3af" : "#374151",
-                }}
-                className="leading-relaxed text-sm md:text-base mt-4"
-              >
-                {bio?.para2 || DEFAULT_BIO_2}
-              </p>
-            </>
+            ))
           )}
 
           {/* TAGS */}

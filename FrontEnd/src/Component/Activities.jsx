@@ -8,22 +8,54 @@ const API = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
 
+// 🔥 DEFAULT CARDS
+const DEFAULT_ACTIVITIES = [
+  {
+    profilePic: "https://via.placeholder.com/150",
+    name: "Project One",
+    role: "Frontend Project",
+    description: "This is a default project shown when API fails.",
+    image: "https://via.placeholder.com/400",
+    liveLink: "#",
+  },
+  {
+    profilePic: "https://via.placeholder.com/150",
+    name: "Project Two",
+    role: "React App",
+    description: "Sample project displayed as fallback content.",
+    image: "https://via.placeholder.com/400",
+    liveLink: "#",
+  },
+  {
+    profilePic: "https://via.placeholder.com/150",
+    name: "Project Three",
+    role: "UI Design",
+    description: "Default project card when data is not available.",
+    image: "https://via.placeholder.com/400",
+    liveLink: "#",
+  },
+];
+
 export default function Activities() {
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
 
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchActivities = async () => {
       try {
         const res = await API.get("/api/project");
-        setActivities(res.data);
+
+        if (res.data && res.data.length > 0) {
+          setActivities(res.data);
+        } else {
+          setActivities(DEFAULT_ACTIVITIES);
+        }
       } catch (err) {
         console.error("Error fetching activities:", err);
-        setError("Failed to load activities");
+        setActivities(DEFAULT_ACTIVITIES); // 🔥 fallback
       } finally {
         setLoading(false);
       }
@@ -42,16 +74,13 @@ export default function Activities() {
       </p>
     );
 
-  if (error)
-    return <p className="text-center mt-4 text-red-500">{error}</p>;
-
   return (
     <div
       className={`relative transition-colors duration-500 ${
-        isDark ? "bg-gray-950 text-white" : "bg-[#F7F6F2] text-gray-800" // ✅ bg-white → bg-[#F7F6F2]
+        isDark ? "bg-gray-950 text-white" : "bg-[#F7F6F2] text-gray-800"
       }`}
     >
-      {/* ✅ Dot background — same as LinkedInAbout */}
+      {/* dot background */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.03]"
@@ -63,9 +92,8 @@ export default function Activities() {
         }}
       />
 
-      {/* CONTENT */}
       <div className="relative md:ml-5 ml-0 pl-7 pr-6 flex flex-col">
-        <h2 className="md:text-4xl text-2xl  pr-4 font-black mb-3">
+        <h2 className="md:text-4xl text-2xl pr-4 font-black mb-3">
           Activities (Projects)
         </h2>
 
@@ -83,7 +111,6 @@ export default function Activities() {
           ))}
         </div>
 
-        {/* Show All Posts */}
         <div className="mt-8 text-center">
           <Link
             to="/activity"
