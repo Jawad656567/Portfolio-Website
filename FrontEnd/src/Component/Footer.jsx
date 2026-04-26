@@ -40,9 +40,9 @@ export default function LinkedInFooter() {
               }`}
             >
               <img
-                src="/logoo.jpeg"
+                src="/white.png"
                 alt="Profile"
-                className="w-full h-full mt-2 object-cover scale-240"
+               
               />
             </div>
           </div>
