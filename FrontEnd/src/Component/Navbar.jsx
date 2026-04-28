@@ -126,7 +126,7 @@ const Navbar = () => {
         {/* Top Section */}
         <div className={`flex items-center space-x-3 px-5 py-4 border-b ${theme === "light" ? "border-gray-200" : "border-gray-700"}`}>
           <div className="w-12 h-12 rounded-lg overflow-hidden">
-            <img src={theme === "light" ? "white.png" : "dark.png"} className="w-full h-full object-cover" />
+            <img src={theme === "light" ? "white.png" : "white.png"} className="w-full h-full object-cover" />
           </div>
           <h2 className="font-bold text-lg text-white">{theme === "light" ? "Dev. Jawad" : "Dev. Jawad"}</h2>
         </div>
