@@ -11,29 +11,24 @@ const API = axios.create({
 // 🔥 DEFAULT CARDS
 const DEFAULT_ACTIVITIES = [
   {
-    profilePic: "https://via.placeholder.com/150",
-    name: "Project One",
-    role: "Frontend Project",
-    description: "This is a default project shown when API fails.",
-    image: "https://via.placeholder.com/400",
+   
+    description: "A web app that displays information about countries around the world.",
+    image: "/countries.png",
     liveLink: "#",
   },
-  {
-    profilePic: "https://via.placeholder.com/150",
-    name: "Project Two",
-    role: "React App",
-    description: "Sample project displayed as fallback content.",
-    image: "https://via.placeholder.com/400",
+   {
+   
+    description: "An invoice generator for creating and downloading professional bills.",
+    image: "portfolio.png",
     liveLink: "#",
   },
-  {
-    profilePic: "https://via.placeholder.com/150",
-    name: "Project Three",
-    role: "UI Design",
-    description: "Default project card when data is not available.",
-    image: "https://via.placeholder.com/400",
+   {
+   
+    description: "A simple and dedicated developer who creates clean, responsive, and user-friendly websites.",
+    image: "calculator.png",
     liveLink: "#",
   },
+ 
 ];
 
 export default function Activities() {

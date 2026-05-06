@@ -110,10 +110,8 @@ export default function AllActivities() {
       try {
         const res = await API.get("/api/project");
         setActivities(res.data.reverse());
-      } catch (err) {
-        console.error("Error fetching activities:", err);
-        setError("Failed to load activities");
-      } finally {
+      } 
+      finally {
         setLoading(false);
       }
     };
@@ -151,20 +149,50 @@ export default function AllActivities() {
 
       <div className="grid gap-6 grid-cols-1 md:grid-cols-3 w-full relative z-10">
         {loading
-          ? Array.from({ length: 6 }).map((_, idx) => (
-              <SkeletonCard key={idx} isDark={isDark} />
-            ))
-          : activities.map((activity, index) => (
-              <Card
-                key={index}
-                profilePic={activity.profilePic}
-                name={activity.name}
-                role={activity.role}
-                description={activity.description}
-                image={activity.image}
-                liveLink={activity.liveLink}
-              />
-            ))}
+  ? Array.from({ length: 6 }).map((_, idx) => (
+      <SkeletonCard key={idx} isDark={isDark} />
+    ))
+  : (activities.length > 0 ? activities : [
+      {
+   
+    description: "A web app that displays information about countries around the world.",
+    image: "/countries.png",
+    liveLink: "#",
+  },
+   {
+   
+    description: "An invoice generator for creating and downloading professional bills.",
+    image: "portfolio.png",
+    liveLink: "#",
+  },
+   {
+   
+    description: "A simple and dedicated developer who creates clean, responsive, and user-friendly websites.",
+    image: "calculator.png",
+    liveLink: "#",
+  },
+    ]).map((activity, index) => {
+      const {
+        profilePic,
+        name,
+        role,
+        description,
+        image,
+        liveLink,
+      } = activity;
+
+      return (
+        <Card
+          key={index}
+          profilePic={profilePic}
+          name={name}
+          role={role}
+          description={description}
+          image={image}
+          liveLink={liveLink}
+        />
+      );
+    })}
       </div>
     </div>
   );
