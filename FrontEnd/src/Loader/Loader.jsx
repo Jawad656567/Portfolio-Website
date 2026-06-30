@@ -13,80 +13,78 @@ const Loader = ({ children, duration = 2000 }) => {
 
   if (loading) {
     return (
-      <div
-        className={`fixed inset-0 flex flex-col justify-center items-center z-50 overflow-hidden transition-colors duration-500 ${
-          isDark ? "bg-gray-950 text-white" : "bg-white text-black"
-        }`}
-      >
-        {/* DOT BACKGROUND */}
+      <>
+        {/* Animation CSS */}
+        <style>{`
+          @keyframes wave {
+            0%, 60%, 100% {
+              transform: translateY(0) scale(0.8);
+              opacity: .4;
+            }
+
+            30% {
+              transform: translateY(-16px) scale(1.2);
+              opacity: 1;
+            }
+          }
+
+          .wave-dot {
+            animation: wave 0.9s infinite ease-in-out;
+          }
+
+          .wave-dot:nth-child(2) {
+            animation-delay: .15s;
+          }
+
+          .wave-dot:nth-child(3) {
+            animation-delay: .30s;
+          }
+        `}</style>
+
         <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, ${
-              isDark ? "#fff" : "#000"
-            } 1px, transparent 0)`,
-            backgroundSize: "24px 24px",
-          }}
-        />
+          className={`fixed inset-0 flex flex-col justify-center items-center z-50 overflow-hidden transition-colors duration-500 ${
+            isDark ? "bg-gray-950 text-white" : "bg-white text-black"
+          }`}
+        >
+          {/* Background */}
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, ${
+                isDark ? "#fff" : "#000"
+              } 1px, transparent 0)`,
+              backgroundSize: "24px 24px",
+            }}
+          />
 
-        {/* MAIN LOADER CONTENT */}
-        <div className="relative z-10 flex flex-col items-center gap-6">
+          {/* Loader */}
+          <div className="relative z-10 flex flex-col items-center gap-8">
+            {/* 3 Wave Dots */}
+            <div className="flex items-center justify-center gap-4 h-16">
+              <span
+                className={`wave-dot w-4 h-4 rounded-full ${
+                  isDark ? "bg-white" : "bg-black"
+                }`}
+              ></span>
 
-          {/* SPINNER */}
-          <div className="relative w-28 h-28 flex items-center justify-center">
+              <span
+                className={`wave-dot w-4 h-4 rounded-full ${
+                  isDark ? "bg-white" : "bg-black"
+                }`}
+              ></span>
 
-            {/* Outer ring */}
-            <div
-              className={`absolute inset-0 rounded-full border-4 border-t-transparent animate-spin`}
-              style={{
-                borderColor: isDark ? "#ffffff30" : "#00000020",
-                borderTopColor: isDark ? "#fff" : "#000",
-                animationDuration: "1.8s",
-              }}
-            />
-
-            {/* Middle ring */}
-            <div
-              className="absolute inset-3 rounded-full border-2 animate-spin"
-              style={{
-                borderColor: isDark ? "#ffffff20" : "#00000010",
-                animationDuration: "2.5s",
-                animationDirection: "reverse",
-              }}
-            />
-
-            {/* Glow center */}
-            <div
-              className={`absolute inset-10 rounded-full blur-md ${
-                isDark ? "bg-white/10" : "bg-black/5"
-              }`}
-            />
-
-            {/* Text */}
-            <div className="relative flex flex-col items-center justify-center">
-              <h1 className="text-3xl font-black tracking-tight">
-                JWD
-              </h1>
+              <span
+                className={`wave-dot w-4 h-4 rounded-full ${
+                  isDark ? "bg-white" : "bg-black"
+                }`}
+              ></span>
             </div>
-          </div>
 
-          {/* TEXT */}
-          <div className="text-center space-y-1">
-            <h2 className="text-lg md:text-xl font-bold tracking-widest">
-              CODING
-            </h2>
-
-            <p className="text-xs tracking-widest uppercase opacity-60">
-              Professional Portfolio
-            </p>
-
-            <p className="text-[10px] tracking-wider uppercase opacity-40 pt-1">
-              Loading experience...
-            </p>
+           
           </div>
         </div>
-      </div>
+      </>
     );
   }
 
