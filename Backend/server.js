@@ -100,16 +100,19 @@ app.get("/", (req, res) => {
 // agar .env file me PORT likha ho to wo use hoga
 // warna default 5000 use hoga
 
-const PORT = process.env.PORT || 5000;
+// const PORT = process.env.PORT || 5000;
 
 
 // server start kar rahe hain
 // app.listen server ko start karta hai
 // aur specific port par run karta hai
 
-app.listen(PORT, () =>
-  console.log(`Server running on port ${PORT}`)
-);
+//is yai render per support hota hai 
+// app.listen(PORT, () =>
+//   console.log(`Server running on port ${PORT}`)
+// );
+
+
 
 // =============================
 // AUTH ROUTES
@@ -163,3 +166,14 @@ app.use("/api/contact", contactRoute);
 //project
 const projectroute = require("./routes/projects");
 app.use("/api/project", projectroute);
+
+//yai vercel ka liye hai deployemnt ka liye wo srif yai support karta hai
+const PORT = process.env.PORT || 5000;
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
