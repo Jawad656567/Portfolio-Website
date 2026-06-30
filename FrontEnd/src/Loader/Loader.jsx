@@ -81,7 +81,7 @@ const Loader = ({ children, duration = 2000 }) => {
               ></span>
             </div>
 
-           
+          
           </div>
         </div>
       </>
