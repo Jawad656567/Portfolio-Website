@@ -26,7 +26,7 @@ const cors = require("cors");
 // jaise database password, API keys waghera
 require("dotenv").config();
 
-
+const cookieParser = require("cookie-parser");
 
 // Express application create kar rahe hain
 // yeh hamara main backend app hai jisme routes aur middleware add honge
@@ -52,6 +52,7 @@ app.use(cors());
 app.use(express.json());
 
 
+app.use(cookieParser());
 
 // =============================
 // MONGODB CONNECTION
@@ -119,12 +120,12 @@ app.get("/", (req, res) => {
 // =============================
 
 // auth routes import kar rahe hain
-const authRoutes = require("./routes/auth");
+const authRoutes = require("./routes/user.js");
 
 // auth routes ko activate kar rahe hain
 // ab jo bhi request /api/auth par ayegi
 // wo routes/auth.js me handle hogi
-app.use("/api/auth", authRoutes);
+app.use("/api/user", authRoutes);
 
 
 // About routes
