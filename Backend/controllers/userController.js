@@ -1,9 +1,8 @@
 const User = require("../models/user");
 
-
-// ==========================
+// ─────────────────────────────────────────────
 // LOGIN API
-// ==========================
+// ─────────────────────────────────────────────
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
 
@@ -42,17 +41,17 @@ const loginUser = async (req, res) => {
     // Cookie options
     const options = {
       httpOnly: true,
-      secure: true,
+      secure: false,
     };
 
-    // Send cookie + response
+    // Send token in HttpOnly Cookie
+    // Token is NOT sent in JSON response
     return res
       .status(200)
       .cookie("accessToken", accessToken, options)
       .json({
         message: "Login successful",
         user: loggedinUser,
-        accessToken,
       });
 
   } catch (error) {
@@ -66,15 +65,16 @@ const loginUser = async (req, res) => {
 };
 
 
-// ==========================
+// ─────────────────────────────────────────────
 // GET PROFILE API
-// ==========================
+// ─────────────────────────────────────────────
 const getProfile = async (req, res) => {
   try {
     return res.status(200).json({
       message: "Profile fetched successfully",
       user: req.user,
     });
+
   } catch (error) {
     console.error("Profile Error:", error);
 
@@ -85,9 +85,9 @@ const getProfile = async (req, res) => {
 };
 
 
-// ==========================
+// ─────────────────────────────────────────────
 // LOGOUT API
-// ==========================
+// ─────────────────────────────────────────────
 const logoutUser = async (req, res) => {
   try {
 
@@ -95,7 +95,7 @@ const logoutUser = async (req, res) => {
       .status(200)
       .clearCookie("accessToken", {
         httpOnly: true,
-        secure: true,
+        secure: false,
       })
       .json({
         message: "Logout successful",
@@ -111,11 +111,11 @@ const logoutUser = async (req, res) => {
 };
 
 
-// ==========================
-// EXPORT
-// ==========================
+// ─────────────────────────────────────────────
+// EXPORTS
+// ─────────────────────────────────────────────
 module.exports = {
   loginUser,
   getProfile,
-  logoutUser
+  logoutUser,
 };

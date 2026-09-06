@@ -1,24 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-
-/**
- * ProtectedRoute component
- * 
- * Ye check karta hai ki user admin login hai ya nahi.
- * Agar login hai → children render karega
- * Agar login nahi → /login page pe redirect karega
- */
+import axios from "axios";
 
 const ProtectedRoute = ({ children }) => {
-  // Simple check: localStorage me 'admin' key
-  const isLogin = localStorage.getItem("admin");
+  const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  if (!isLogin) {
-    // Redirect to login if not logged in
+  const API = import.meta.env.VITE_API_URL;
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await axios.get(`${API}/api/user/profile`, {
+          withCredentials: true,
+        });
+
+        // Cookie mein valid token hai
+        setIsAuthenticated(true);
+      } catch (error) {
+        // Token nahi hai ya expired/invalid hai
+        setIsAuthenticated(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, [API]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
-  // Agar login hai → render children (admin layout / page)
   return children;
 };
 

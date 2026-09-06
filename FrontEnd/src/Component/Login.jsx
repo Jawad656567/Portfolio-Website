@@ -12,15 +12,16 @@ const Login = () => {
 
     try {
       const API = import.meta.env.VITE_API_URL;
-      const response = await axios.post(`${API}/api/auth/login`, {
+      const response = await axios.post(`${API}/api/user/login`, {
         username,
         password,
+      }, {
+        withCredentials: true,
       });
 
       console.log("API Response:", response.data);
 
       if (response.data.message === "Login successful") {
-        localStorage.setItem("admin", "true");
         navigate("/admin/banner");
       }
     } catch (error) {
@@ -32,8 +33,8 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-white px-4">
       <div className="w-full max-w-md">
-        <form 
-          onSubmit={handleLogin} 
+        <form
+          onSubmit={handleLogin}
           className="bg-white shadow-lg rounded-xl p-8 sm:p-10 border border-gray-200"
         >
           <h1 className="text-3xl font-bold mb-8 text-center text-black">
@@ -44,12 +45,12 @@ const Login = () => {
             <label className="block mb-2 text-sm font-medium text-gray-700">
               Username
             </label>
-            <input 
-              type="text" 
-              placeholder="Enter username" 
+            <input
+              type="text"
+              placeholder="Enter username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition"
+              className="w-full px-4 py-3 text-black placeholder:text-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition"
               required
             />
           </div>
@@ -58,17 +59,17 @@ const Login = () => {
             <label className="block mb-2 text-sm font-medium text-gray-700">
               Password
             </label>
-            <input 
-              type="password" 
-              placeholder="Enter password" 
+            <input
+              type="password"
+              placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition"
+              className="w-full px-4 py-3 text-black placeholder:text-gray-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition"
               required
             />
           </div>
 
-          <button 
+          <button
             type="submit"
             className="w-full py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 transition"
           >

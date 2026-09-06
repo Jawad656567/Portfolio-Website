@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Outlet, useNavigate, Link, useLocation } from "react-router-dom";
-import {Image,User, FileText,Star,FolderKanban,GraduationCap,Briefcase,Code,LogOut} from "lucide-react";
+import { Image, User, FileText, Star, FolderKanban, GraduationCap, Briefcase, Code, LogOut } from "lucide-react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { SiEdgeimpulse, SiEducative } from "react-icons/si";
 
@@ -10,9 +11,20 @@ export default function Admin() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleLogout = () => {
-    localStorage.removeItem("admin");
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        "http://localhost:5000/api/user/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+
+      navigate("/login");
+    } catch (error) {
+      console.log("Logout error:", error);
+    }
   };
 
   const isActive = (path) => location.pathname.includes(path);
@@ -22,19 +34,18 @@ export default function Admin() {
     { path: "profile", label: "Profile Info", icon: User },
     { path: "about", label: "About", icon: FileText },
     { path: "featured", label: "Featured", icon: Star },
-    { path: "projects", label: "Projects", icon: FolderKanban   },
-    { path: "education", label: "Education", icon: GraduationCap  },
-    { path: "experience", label: "Experience", icon: Briefcase  },
-    { path: "skill", label: "Skill", icon: Code  },
+    { path: "projects", label: "Projects", icon: FolderKanban },
+    { path: "education", label: "Education", icon: GraduationCap },
+    { path: "experience", label: "Experience", icon: Briefcase },
+    { path: "skill", label: "Skill", icon: Code },
   ];
 
   return (
     <div className="flex h-screen bg-white text-black">
       {/* Desktop Sidebar */}
       <div
-        className={`hidden sm:flex flex-col ${
-          sidebarOpen ? "w-64" : "w-20"
-        } bg-black text-white transition-all duration-300 p-4 shadow-lg justify-between`}
+        className={`hidden sm:flex flex-col ${sidebarOpen ? "w-64" : "w-20"
+          } bg-black text-white transition-all duration-300 p-4 shadow-lg justify-between`}
       >
         <div className="space-y-8">
           <div className="flex items-center justify-between">
@@ -52,11 +63,10 @@ export default function Admin() {
               <Link
                 key={path}
                 to={path}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                  isActive(path)
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${isActive(path)
                     ? "bg-white text-black font-semibold"
                     : "text-gray-300 hover:text-white hover:bg-gray-700"
-                }`}
+                  }`}
               >
                 <Icon size={20} />
                 {sidebarOpen && <span>{label}</span>}
@@ -76,9 +86,8 @@ export default function Admin() {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 z-50 bg-black text-white backdrop-blur-md transition-transform duration-300 sm:hidden ${
-          mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed top-0 left-0 h-full w-64 z-50 bg-black text-white backdrop-blur-md transition-transform duration-300 sm:hidden ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="flex justify-end p-4">
           <button onClick={() => setMobileMenuOpen(false)}>
@@ -91,11 +100,10 @@ export default function Admin() {
               key={path}
               to={path}
               onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center gap-3 px-6 py-3 rounded-lg transition-colors duration-200 ${
-                isActive(path)
+              className={`flex items-center gap-3 px-6 py-3 rounded-lg transition-colors duration-200 ${isActive(path)
                   ? "bg-white text-black font-semibold"
                   : "text-gray-300 hover:bg-gray-700"
-              }`}
+                }`}
             >
               <Icon size={20} />
               <span>{label}</span>

@@ -41,7 +41,12 @@ const app = express();
 
 // cors middleware enable kar rahe hain
 // iska matlab hai frontend (React) ko backend se data lene ki permission mil gayi
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 
 // express.json middleware enable kar rahe hain

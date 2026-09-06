@@ -77,7 +77,12 @@ const AdminProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/profile`);
+        const res = await axios.get(
+          `${API_URL}/api/profile`,
+          {
+            withCredentials: true,
+          }
+        );
         const data = res.data || {};
 
         setPreviewBanner(data.banner || "bannerr.webp");
@@ -101,11 +106,20 @@ const AdminProfile = () => {
     if (profilePic) formData.append("profilePic", profilePic);
 
     try {
-      const res = await axios.post(
+      
+
+
+       const res = await axios.post(
         `${API_URL}/api/profile/upload`,
         formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
+
 
       if (res.data.banner) setPreviewBanner(res.data.banner);
       if (res.data.profilePic) setPreviewProfile(res.data.profilePic);
@@ -192,9 +206,8 @@ const AdminProfile = () => {
           <button
             type="submit"
             disabled={updating}
-            className={`py-3 text-white rounded-xl transition ${
-              updating ? "bg-gray-600" : "bg-black hover:bg-gray-900"
-            }`}
+            className={`py-3 text-white rounded-xl transition ${updating ? "bg-gray-600" : "bg-black hover:bg-gray-900"
+              }`}
           >
             {updating ? "Updating..." : "Update Profile"}
           </button>
