@@ -41,7 +41,7 @@ const loginUser = async (req, res) => {
     // Cookie options
     const options = {
       httpOnly: true,
-      secure: false,
+      secure: true,
     };
 
     // Send token in HttpOnly Cookie
@@ -95,7 +95,7 @@ const logoutUser = async (req, res) => {
       .status(200)
       .clearCookie("accessToken", {
         httpOnly: true,
-        secure: false,
+        secure: true,
       })
       .json({
         message: "Logout successful",
