@@ -45,6 +45,11 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
   "https://jawaddev.site",
+  "https://www.jawaddev.site",
+  ...(process.env.FRONTEND_URLS || "")
+    .split(",")
+    .map((origin) => origin.trim().replace(/\/+$/, ""))
+    .filter(Boolean),
 ];
 
 app.use(

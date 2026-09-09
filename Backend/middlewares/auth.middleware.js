@@ -7,7 +7,6 @@ const verifyJWT = async (req, res, next) => {
       req.cookies?.accessToken ||
       req.header("Authorization")?.replace("Bearer ", "");
 
-    console.log("TOKEN:", token);
 
     if (!token) {
       return res.status(401).json({
@@ -20,7 +19,6 @@ const verifyJWT = async (req, res, next) => {
       process.env.ACCESS_TOKEN_SECRET
     );
 
-    console.log("Decoded Token:", decodedToken);
 
     const user = await User.findById(decodedToken._id)
       .select("-password");

@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const getAuthCookieOptions = require("../utils/authCookie");
 
 // ─────────────────────────────────────────────
 // LOGIN API
@@ -6,13 +7,11 @@ const User = require("../models/user");
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
 
-  console.log("Login attempt:", username);
 
   try {
     // Find user
     const user = await User.findOne({ username });
 
-    console.log("Found user:", user);
 
     if (!user) {
       return res.status(400).json({
@@ -23,7 +22,6 @@ const loginUser = async (req, res) => {
     // Check password
     const isPasswordCorrect = await user.isPasswordCorrect(password);
 
-    console.log("Password correct:", isPasswordCorrect);
 
     if (!isPasswordCorrect) {
       return res.status(400).json({
@@ -39,10 +37,7 @@ const loginUser = async (req, res) => {
       .select("-password");
 
     // Cookie options
-    const options = {
-      httpOnly: true,
-      secure: true,
-    };
+    const options = getAuthCookieOptions();
 
     // Send token in HttpOnly Cookie
     // Token is NOT sent in JSON response
@@ -93,10 +88,7 @@ const logoutUser = async (req, res) => {
 
     return res
       .status(200)
-      .clearCookie("accessToken", {
-        httpOnly: true,
-        secure: true,
-      })
+      .clearCookie("accessToken", getAuthCookieOptions())
       .json({
         message: "Logout successful",
       });

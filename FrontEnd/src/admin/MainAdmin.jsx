@@ -14,7 +14,7 @@ export default function Admin() {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/api/user/logout",
+        `${import.meta.env.VITE_API_URL}/api/user/logout`,
         {},
         {
           withCredentials: true,
