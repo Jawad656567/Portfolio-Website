@@ -60,18 +60,9 @@ const uploadProfileImages = async (req, res) => {
 // =============================
 const getProfile = async (req, res) => {
   try {
-    let profile = await Profile.findOne();
+    const profile = await Profile.findOne();
 
-    if (!profile) {
-      profile = new Profile({
-        banner: null,
-        profilePic: null,
-      });
-
-      await profile.save();
-    }
-
-    res.json(profile);
+    res.json(profile || { banner: null, profilePic: null });
   } catch (error) {
     console.error("Get Profile Error:", error);
 

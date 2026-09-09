@@ -11,7 +11,7 @@ const express = require("express");
 // Mongoose ko import kar rahe hain
 // Mongoose MongoDB database ke sath kaam karne ke liye use hota hai
 // Iski madad se hum data ko save, read, update aur delete kar sakte hain
-const mongoose = require("mongoose");
+const { requireDatabase } = require("./middlewares/database");
 
 
 // CORS ko import kar rahe hain
@@ -82,13 +82,9 @@ app.use(cookieParser());
 // mongoose.connect MongoDB database se connection banata hai
 // process.env.MONGO_URI .env file se database connection string leta hai
 
-mongoose.connect(process.env.MONGO_URI)
-
-  // agar database successfully connect ho jaye
-  .then(() => console.log("MongoDB Connected"))
-
-  // agar koi error aaye (wrong password ya network issue)
-  .catch(err => console.log("MongoDB Connection Error:", err));
+// Serverless requests must wait for the shared connection before querying.
+// Failed connections can be retried by the next request.
+app.use("/api", requireDatabase);
 
 
 

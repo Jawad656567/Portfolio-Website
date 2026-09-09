@@ -31,7 +31,8 @@ router.post(
 // GET PROFILE
 // =============================
 
-router.get("/", verifyJWT, getProfile);
+// Portfolio images are public; only uploads require an admin session.
+router.get("/", getProfile);
 
 
 module.exports = router;
