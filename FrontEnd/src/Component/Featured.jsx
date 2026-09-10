@@ -17,11 +17,11 @@ export default function FeaturedSection() {
   const [isHovered, setIsHovered] = useState(false);
 
   const defaultData = [
-    { _id: 3, title: "Food App", tag: "Engineering", image_url: "/food.png" },
-    { _id: 2, title: "Portfolio Website", tag: "Research", image_url: "/portfolio.png" },
-    { _id: 3, title: "Countries App", tag: "Engineering", image_url: "/countries.png" },
-    { _id: 2, title: "Calculator App", tag: "Research", image_url: "/calculator.png" },
-    { _id: 1, title: "Todo App", tag: "Design", image_url: "/todo.png" },
+    { _id: "default-food", title: "Food App", tag: "Engineering", image_url: "/food.png" },
+    { _id: "default-portfolio", title: "Portfolio Website", tag: "Research", image_url: "/portfolio.png" },
+    { _id: "default-countries", title: "Countries App", tag: "Engineering", image_url: "/countries.png" },
+    { _id: "default-calculator", title: "Calculator App", tag: "Research", image_url: "/calculator.png" },
+    { _id: "default-todo", title: "Todo App", tag: "Design", image_url: "/todo.png" },
   ];
 
   const [featuredData, setFeaturedData] = useState(defaultData);
